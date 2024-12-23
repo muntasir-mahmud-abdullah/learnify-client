@@ -15,12 +15,11 @@ const Navbar = () => {
         <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink to="/">Home</NavLink>
+        <NavLink to="/myTutors">My Tutors</NavLink>
       </li>
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
-
     </>
   );
   return (
@@ -58,7 +57,9 @@ const Navbar = () => {
       <div className="navbar-end">
         {user ? (
           <>
-            <button onClick={handleSignOut} className="btn">Sign Out</button>
+            <button onClick={handleSignOut} className="btn">
+              Sign Out
+            </button>
           </>
         ) : (
           <>

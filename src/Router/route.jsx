@@ -3,6 +3,11 @@ import MainLayout from "../Layout/MainLayout";
 import Home from "../Pages/Home/Home";
 import Register from "../Pages/Register/Register";
 import SignIn from "../Pages/SignIn/SignIn";
+import LanguageDetails from "../Pages/LanguageDetails/LanguageDetails";
+import TutorDetails from "../Pages/TutorDetails/TutorDetails";
+import PrivateRoute from "./PrivateRoute";
+import BookedTutors from "../Pages/BookedTutors/BookedTutors";
+import MyTutors from "../Pages/MyTutors/MyTutors";
 
 const router = createBrowserRouter([
   {
@@ -15,13 +20,42 @@ const router = createBrowserRouter([
         element: <Home></Home>,
       },
       {
-        path:"register",
-        element:<Register></Register>,
+        path: "/languages/:id",
+        element: <LanguageDetails></LanguageDetails>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/languages/${params.id}`),
       },
       {
-        path:"signin",
-        element:<SignIn></SignIn>,
-      }
+        path: "/tutors/:id",
+        element: (
+          <PrivateRoute>
+            <TutorDetails></TutorDetails>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/tutors/${params.id}`),
+      },
+      {
+        path: "/bookedTutors/:id",
+        element: (
+          <PrivateRoute>
+            <BookedTutors></BookedTutors>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path:'/myTutors',
+        element:<PrivateRoute> <MyTutors></MyTutors></PrivateRoute>
+      },
+
+      {
+        path: "register",
+        element: <Register></Register>,
+      },
+      {
+        path: "signin",
+        element: <SignIn></SignIn>,
+      },
     ],
   },
 ]);

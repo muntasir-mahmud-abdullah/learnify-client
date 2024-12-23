@@ -24,18 +24,18 @@ const AuthProvider = ({ children }) => {
   };
   const signInWithGoogle = () => {
     setLoading(true);
-    return signInWithPopup(auth,googleProvider);
-  }
+    return signInWithPopup(auth, googleProvider);
+  };
   const signOutUser = () => {
     setLoading(true);
     return signOut(auth);
-  }
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
-      console.log(currentUser);
+      // console.log(currentUser);
     });
     return () => {
       unsubscribe();
