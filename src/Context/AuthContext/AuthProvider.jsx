@@ -41,6 +41,7 @@ const AuthProvider = ({ children }) => {
       unsubscribe();
     };
   }, []);
+  // const [tutor,setTutor] = useState([]);
 
   const authInfo = {
     user,
@@ -49,6 +50,8 @@ const AuthProvider = ({ children }) => {
     signInUser,
     signOutUser,
     signInWithGoogle,
+    // setTutor,
+    // tutor,
   };
   return (
     <div>

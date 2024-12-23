@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import UseAuth from "../../Hooks/UseAuth";
 
 const BookedTutors = () => {
+  // const tutor = useLoaderData();
   const { user } = UseAuth();
   const { id } = useParams();
   console.log(id, user);
@@ -17,7 +18,6 @@ const BookedTutors = () => {
     },
     body: JSON.stringify(bookedTutor),
   });
-  
 
   return (
     <div>
