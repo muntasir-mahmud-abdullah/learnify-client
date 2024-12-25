@@ -2,7 +2,8 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const LanguageCard = ({ language }) => {
-  const { _id, name, logo } = language; // Fields: name (title) and logo
+  const { _id, name, logo } = language;
+  console.log(language); // Fields: name (title) and logo
   //   const navigate = useNavigate();
 
   //   const handleCardClick = () => {
@@ -25,7 +26,7 @@ const LanguageCard = ({ language }) => {
           <h3 className="text-lg font-bold text-primary">{name}</h3>
         </div>
         {/* Right Arrow Icon */}
-        <Link to={`/languages/${_id}`}>
+        <Link to={`/find-tutors/${name}`}>
           <button className="btn btn-circle btn-sm btn-primary">
             <svg
               xmlns="http://www.w3.org/2000/svg"

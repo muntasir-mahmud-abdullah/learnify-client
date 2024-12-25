@@ -29,7 +29,7 @@ const BestTutorCard = ({ tutor }) => {
           </p>
         </div>
         <div className="card-actions justify-end mt-4">
-          <Link to={`/tutors/${_id}`}>
+          <Link to={`/tutorials/${_id}`}>
             <button className="btn btn-primary btn-sm">View Details</button>
           </Link>
         </div>

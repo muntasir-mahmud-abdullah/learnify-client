@@ -14,6 +14,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [tutorials, setTutorials] = useState([]);
+  const [tutors,setTutors] = useState([]);
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -53,6 +54,8 @@ const AuthProvider = ({ children }) => {
     signInWithGoogle,
     tutorials,
     setTutorials,
+    tutors,
+    setTutors,
     // setTutor,
     // tutor,
   };

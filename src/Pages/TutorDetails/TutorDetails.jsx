@@ -4,6 +4,20 @@ import { Link, useLoaderData } from "react-router-dom";
 const TutorDetails = () => {
   const tutor = useLoaderData();
   const { _id,name, image, language, description, price, reviews } = tutor;
+  const handleBookedTutor = () => {
+      fetch('http://localhost:5000/booked-tutors',{
+    method:'POST',
+    headers:{
+      'content-type':'application/json'
+    },
+    body:JSON.stringify(tutor),
+  })
+  .then(res=>res.json())
+  .then(data=>{
+    console.log(data);
+  })
+  }
+
 
   return (
     <div className="container mx-auto mt-8">
@@ -41,7 +55,7 @@ const TutorDetails = () => {
 
           {/* Action Section */}
           <div className="card-actions justify-end mt-6">
-            <Link><button className="btn btn-primary">Book Now</button></Link>
+            <button onClick={handleBookedTutor} className="btn btn-primary">Book Now</button>
           </div>
         </div>
       </div>
