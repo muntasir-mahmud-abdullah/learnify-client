@@ -41,7 +41,7 @@ const TutorDetails = () => {
 
           {/* Action Section */}
           <div className="card-actions justify-end mt-6">
-            <Link to={`/bookedTutors/${_id}`}><button className="btn btn-primary">Book Now</button></Link>
+            <Link><button className="btn btn-primary">Book Now</button></Link>
           </div>
         </div>
       </div>

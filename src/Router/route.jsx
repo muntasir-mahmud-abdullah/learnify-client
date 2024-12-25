@@ -6,9 +6,8 @@ import SignIn from "../Pages/SignIn/SignIn";
 import LanguageDetails from "../Pages/LanguageDetails/LanguageDetails";
 import TutorDetails from "../Pages/TutorDetails/TutorDetails";
 import PrivateRoute from "./PrivateRoute";
-import BookedTutors from "../Pages/BookedTutors/BookedTutors";
-import MyTutors from "../Pages/MyTutors/MyTutors";
 import AddTutorial from "../Pages/AddTutorial/AddTutorial";
+import MyTutorials from "../Pages/MyTutorials/MyTutorials";
 
 const router = createBrowserRouter([
   {
@@ -36,31 +35,13 @@ const router = createBrowserRouter([
         loader: ({ params }) =>
           fetch(`http://localhost:5000/tutors/${params.id}`),
       },
-      // {
-      //   path: "/tutors/:id",
-      //   element: (
-      //     <PrivateRoute>
-      //       <BookedTutors></BookedTutors>
-      //     </PrivateRoute>
-      //   ),
-      //   loader: ({ params }) =>
-      //     fetch(`http://localhost:5000/tutors/${params.id}`),
-      // },
-      {
-        path: "bookedTutors/:id",
-        element: (
-          <PrivateRoute>
-            <BookedTutors></BookedTutors>
-          </PrivateRoute>
-        ),
-      },
-      {
-        path:'myTutors',
-        element:<PrivateRoute> <MyTutors></MyTutors></PrivateRoute>
-      },
       {
         path:'addTutorial',
         element:<PrivateRoute> <AddTutorial></AddTutorial></PrivateRoute>
+      },
+      {
+        path:'myTutorial',
+        element:<PrivateRoute> <MyTutorials></MyTutorials></PrivateRoute>
       },
 
       {
