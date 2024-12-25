@@ -1,16 +1,30 @@
 import React, { useEffect, useState } from "react";
 import UseAuth from "../../Hooks/UseAuth";
+import { Link } from "react-router-dom";
 
 const MyTutorials = () => {
-  const [tutorials, setTutorials] = useState([]);
-  const { user } = UseAuth();
+  const { user,setTutorials,tutorials } = UseAuth();
   useEffect(() => {
     fetch(`http://localhost:5000/tutorials?email=${user.email}`)
       .then((res) => res.json())
       .then((data) => setTutorials(data));
   }, [user.email]);
-
-  const handleUpdate = (e) => {};
+  // console.log(tutorials)
+  const handleDelete = (id) => {
+    console.log(id);
+    fetch(`http://localhost:5000/tutorials/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        const remaining = tutorials.filter(singtu=>singtu._id != id);
+        setTutorials(remaining);
+      });
+  };
+  const handleUpdate = (id) => {
+    console.log(id);
+  };
   return (
     <div>
       <h2 className="text-3xl">my posted tutorials: {tutorials.length}</h2>
@@ -27,6 +41,7 @@ const MyTutorials = () => {
               <th>Price</th>
               <th>Reviews</th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -41,7 +56,20 @@ const MyTutorials = () => {
                 <td>{tutorial.price}</td>
                 <td></td>
                 <td>
-                  <button onClick={handleUpdate}>Update</button>
+                  <Link to={`/updateTutorial/${tutorial._id}`}>
+                    <button
+                      className="btn"
+                      onClick={() => handleUpdate(tutorial._id)}
+                    >
+                      Update
+                    </button>
+                  </Link>
+                  <button
+                    className="btn"
+                    onClick={() => handleDelete(tutorial._id)}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}

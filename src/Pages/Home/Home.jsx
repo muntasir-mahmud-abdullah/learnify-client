@@ -8,7 +8,6 @@ const Home = () => {
     <div>
       <Banner></Banner>
       <Languages></Languages>
-      <BestTutors></BestTutors>
     </div>
   );
 };
