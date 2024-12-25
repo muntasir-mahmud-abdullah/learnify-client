@@ -1,14 +1,30 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import AuthContext from "../../Context/AuthContext/AuthContext";
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+  // Handle Sign-Out
   const handleSignOut = () => {
     signOutUser().then(() => {
-      console.log("successsful sign out");
+      console.log("Successful sign out");
     });
   };
+
+  // Toggle Theme
+  const toggleTheme = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+  };
+
+  // Apply Theme and Persist in LocalStorage
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
   const links = (
     <>
       <li>
@@ -28,6 +44,7 @@ const Navbar = () => {
       </li>
     </>
   );
+
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
@@ -60,17 +77,39 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
-      <div className="navbar-end">
+      <div className="navbar-end flex items-center gap-4">
+        {/* Theme Toggle */}
+        <label className="swap swap-rotate">
+          <input
+            type="checkbox"
+            onChange={toggleTheme}
+            checked={theme === "dark"}
+          />
+          <svg
+            className="swap-on fill-current w-8 h-8"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <path d="M5.64 17.36A9 9 0 0012 21a9 9 0 100-18 9 9 0 00-6.36 15.36z" />
+          </svg>
+          <svg
+            className="swap-off fill-current w-8 h-8"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <path d="M12 2a1 1 0 011 1v2a1 1 0 01-2 0V3a1 1 0 011-1zm5.66 3.34a1 1 0 01.71 1.71l-1.41 1.41a1 1 0 01-1.41-1.41l1.41-1.41a1 1 0 01.7-.3zM21 11a1 1 0 011 1v2a1 1 0 01-2 0v-2a1 1 0 011-1zM17.66 17.66a1 1 0 01-1.41 0l-1.41-1.41a1 1 0 011.41-1.41l1.41 1.41a1 1 0 010 1.41zM12 18a1 1 0 011 1v2a1 1 0 01-2 0v-2a1 1 0 011-1zM6.34 17.66a1 1 0 010-1.41l1.41-1.41a1 1 0 011.41 1.41l-1.41 1.41a1 1 0 01-1.41 0zM4 13H3a1 1 0 010-2h1a1 1 0 010 2zm1.34-5.66a1 1 0 01-.3-.7 1 1 0 01.3-.71L6.45 5.23a1 1 0 011.41 1.41L6.45 8.05a1 1 0 01-1.41 0z" />
+          </svg>
+        </label>
+
+        {/* Auth Buttons */}
         {user ? (
-          <>
-            <button onClick={handleSignOut} className="btn">
-              Sign Out
-            </button>
-          </>
+          <button onClick={handleSignOut} className="btn">
+            Sign Out
+          </button>
         ) : (
           <>
-            <Link to={"/register"}>Register</Link>
-            <Link to={"/signin"}>
+            <Link to="/register">Register</Link>
+            <Link to="/signin">
               <button className="btn">Sign In</button>
             </Link>
           </>

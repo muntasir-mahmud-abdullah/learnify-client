@@ -12,12 +12,13 @@ import UpdateTutorials from "../Pages/MyTutorials/UpdateTutorials";
 import BestTutors from "../Pages/Tutors/BestTutors";
 import FindTutors from "../Pages/FindTutors/FindTutors";
 import MyBookedTutors from "../Pages/MyBookedTutors/MyBookedTutors";
+import ErrorPage from "../Pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
-    errorElement: <h2>route not found</h2>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
