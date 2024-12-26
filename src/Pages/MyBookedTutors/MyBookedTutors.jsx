@@ -7,35 +7,13 @@ const MyBookedTutors = () => {
   const [loading, setLoading] = useState(true);
 
   // Fetch booked tutors for the logged-in user
-  // useEffect(() => {
-  //   if (user.email) {
-  //     fetch(`http://localhost:5000/booked-tutors`, {
-  //       method: "GET",
-  //       credentials: "include", // Include cookies for authentication
-  //     })
-  //       .then((res) => {
-  //         if (!res.ok) {
-  //           throw new Error("Failed to fetch booked tutors");
-  //         }
-  //         return res.json();
-  //       })
-  //       .then((data) => {
-  //         setBookedTutors(data);
-  //         setLoading(false);
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error fetching booked tutors:", error);
-  //         setLoading(false);
-  //       });
-  //   }
-  // }, [user.email]);
   useEffect(() => {
     if (!user.email) {
-      setBookedTutors([]); // Optionally reset state if no user email
+      setBookedTutors([]);
       setLoading(false);
       return;
     }
-  
+
     fetch(`http://localhost:5000/booked-tutors`, {
       method: "GET",
       credentials: "include", // Include cookies for authentication
@@ -53,10 +31,34 @@ const MyBookedTutors = () => {
         console.error("Error fetching booked tutors:", error);
       })
       .finally(() => {
-        setLoading(false); // Ensure loading is set to false regardless of success or failure
+        setLoading(false);
       });
   }, [user.email]);
-  
+
+  // Handle Review Increment
+  const handleReview = (id) => {
+    fetch(`http://localhost:5000/booked-tutors/${id}/review`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to increment review count");
+        }
+        return res.json();
+      })
+      .then(() => {
+        // Update the review count optimistically
+        setBookedTutors((prevTutors) =>
+          prevTutors.map((tutor) =>
+            tutor._id === id ? { ...tutor, reviews: (tutor.reviews || 0) + 1 } : tutor
+          )
+        );
+      })
+      .catch((error) => console.error("Error incrementing review count:", error));
+  };
 
   if (loading) {
     return <p className="text-center">Loading booked tutors...</p>;
@@ -82,7 +84,13 @@ const MyBookedTutors = () => {
               <h3 className="text-xl font-bold">{tutor.name}</h3>
               <p className="text-gray-600">Language: {tutor.language}</p>
               <p className="text-gray-600">Price: ${tutor.price}/hour</p>
-              <button className="btn btn-primary mt-4">Write Review</button>
+              <p className="text-gray-600">Reviews: {tutor.reviews || 0}</p>
+              <button
+                className="btn btn-primary mt-4"
+                onClick={() => handleReview(tutor._id)}
+              >
+                Review
+              </button>
             </div>
           ))
         )}

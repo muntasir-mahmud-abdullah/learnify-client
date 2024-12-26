@@ -1,11 +1,12 @@
-import React, { useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../../Context/AuthContext/AuthContext";
 import GoogleSignIn from "../Shared/GoogleSignIn";
 
 const Register = () => {
   const { createUser } = useContext(AuthContext);
+  const [userCount, setUserCount] = useState(0);
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     const form = e.target;
 
@@ -16,18 +17,35 @@ const Register = () => {
 
     console.log({ name, email, password, photoURL });
 
+    // Create user using Firebase
     createUser(email, password)
       .then((result) => {
         console.log("User Created:", result.user);
 
-        // Optionally: Update profile with name and photo URL if needed
-        // updateProfile(auth.currentUser, {
-        //   displayName: name,
-        //   photoURL: photoURL,
-        // }).then(() => console.log("Profile updated"));
+        // Send user details to backend
+        fetch("http://localhost:5000/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, photoURL }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data.message);
+          })
+          .catch((error) => console.error("Error registering user:", error));
       })
       .catch((error) => console.error("Error creating user:", error.message));
   };
+
+  // Fetch registered user count
+  useEffect(() => {
+    fetch("http://localhost:5000/users/count")
+      .then((res) => res.json())
+      .then((data) => {
+        setUserCount(data.count);
+      })
+      .catch((error) => console.error("Error fetching user count:", error));
+  }, []);
 
   return (
     <div className="hero bg-base-200 p-10">
@@ -35,7 +53,6 @@ const Register = () => {
         <div className="card bg-base-100 p-10 w-full max-w-sm shrink-0 shadow-2xl">
           <h1 className="text-4xl text-center font-bold">Register Now!</h1>
           <form onSubmit={handleRegister} className="card-body">
-            {/* Name Field */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Name</span>
@@ -48,8 +65,6 @@ const Register = () => {
                 required
               />
             </div>
-
-            {/* Email Field */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -62,8 +77,6 @@ const Register = () => {
                 required
               />
             </div>
-
-            {/* Password Field */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Password</span>
@@ -76,8 +89,6 @@ const Register = () => {
                 required
               />
             </div>
-
-            {/* Photo URL Field */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Photo URL</span>
@@ -85,20 +96,21 @@ const Register = () => {
               <input
                 name="photoURL"
                 type="url"
-                placeholder="Photo URL"
+                placeholder="Photo URL (Optional)"
                 className="input input-bordered"
               />
             </div>
-
-            {/* Submit Button */}
             <div className="form-control mt-6">
               <button className="btn btn-primary">Register</button>
             </div>
           </form>
-
-          {/* Google Sign-In */}
           <GoogleSignIn></GoogleSignIn>
         </div>
+      </div>
+
+      {/* Registered User Count */}
+      <div className="text-center mt-6">
+        <p className="text-lg">Total Registered Users: {userCount}</p>
       </div>
     </div>
   );
