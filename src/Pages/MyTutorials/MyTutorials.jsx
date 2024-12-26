@@ -33,7 +33,9 @@ const MyTutorials = () => {
 
   // Handle delete functionality
   const handleDelete = (id) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this tutorial?");
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this tutorial?"
+    );
     if (!confirmDelete) return; // Cancel deletion if the user doesn't confirm
 
     fetch(`https://learnify-server-blush.vercel.app/tutorials/${id}`, {

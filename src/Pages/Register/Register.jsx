@@ -36,11 +36,14 @@ const Register = () => {
       console.log("User Created:", result.user);
 
       // Send user details to backend
-      const response = await fetch("https://learnify-server-blush.vercel.app/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, photoURL }),
-      });
+      const response = await fetch(
+        "https://learnify-server-blush.vercel.app/register",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, photoURL }),
+        }
+      );
 
       const data = await response.json();
       if (response.ok) {
@@ -120,7 +123,9 @@ const Register = () => {
           <GoogleSignIn />
           {/* Error and Success Messages */}
           {error && <div className="text-red-500 text-center">{error}</div>}
-          {success && <div className="text-green-500 text-center">{success}</div>}
+          {success && (
+            <div className="text-green-500 text-center">{success}</div>
+          )}
         </div>
       </div>
 

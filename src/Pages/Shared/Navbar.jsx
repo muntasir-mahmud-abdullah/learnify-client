@@ -21,9 +21,7 @@ const Navbar = () => {
           setProfileImage(data.photoURL || profileImage);
           setName(data.name || "User");
         })
-        .catch((error) =>
-          console.error("Error fetching user profile:", error)
-        );
+        .catch((error) => console.error("Error fetching user profile:", error));
     }
   }, [user]);
 

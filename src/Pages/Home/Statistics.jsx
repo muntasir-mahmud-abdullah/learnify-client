@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import BestTutors from "../Tutors/BestTutors";
 
 const Statistics = () => {
   const [userCount, setUserCount] = useState(0);
@@ -46,19 +45,27 @@ const Statistics = () => {
           {/* Tutors Count Card */}
           <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center justify-center text-center border border-gray-200">
             <p className="text-lg font-semibold text-gray-600">Total Tutors</p>
-            <p className="text-4xl font-bold text-primary mt-2">{tutorsCount}</p>
+            <p className="text-4xl font-bold text-primary mt-2">
+              {tutorsCount}
+            </p>
           </div>
 
           {/* Reviews Count Card */}
           <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center justify-center text-center border border-gray-200">
             <p className="text-lg font-semibold text-gray-600">Total Reviews</p>
-            <p className="text-4xl font-bold text-primary mt-2">{totalReviews}</p>
+            <p className="text-4xl font-bold text-primary mt-2">
+              {totalReviews}
+            </p>
           </div>
 
           {/* Languages Count Card */}
           <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center justify-center text-center border border-gray-200">
-            <p className="text-lg font-semibold text-gray-600">Total Languages</p>
-            <p className="text-4xl font-bold text-primary mt-2">{languageCount}</p>
+            <p className="text-lg font-semibold text-gray-600">
+              Total Languages
+            </p>
+            <p className="text-4xl font-bold text-primary mt-2">
+              {languageCount}
+            </p>
           </div>
 
           {/* Users Count Card */}
@@ -70,11 +77,6 @@ const Statistics = () => {
           </div>
         </div>
       )}
-
-      {/* Best Tutors Section */}
-      <div className="mt-12">
-        <BestTutors />
-      </div>
     </div>
   );
 };
