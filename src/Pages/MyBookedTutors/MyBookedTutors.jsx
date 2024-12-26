@@ -4,25 +4,63 @@ import UseAuth from "../../Hooks/UseAuth";
 const MyBookedTutors = () => {
   const { user } = UseAuth();
   const [bookedTutors, setBookedTutors] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  // Fetch booked tutors for the logged-in user
+  // useEffect(() => {
+  //   if (user.email) {
+  //     fetch(`http://localhost:5000/booked-tutors`, {
+  //       method: "GET",
+  //       credentials: "include", // Include cookies for authentication
+  //     })
+  //       .then((res) => {
+  //         if (!res.ok) {
+  //           throw new Error("Failed to fetch booked tutors");
+  //         }
+  //         return res.json();
+  //       })
+  //       .then((data) => {
+  //         setBookedTutors(data);
+  //         setLoading(false);
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error fetching booked tutors:", error);
+  //         setLoading(false);
+  //       });
+  //   }
+  // }, [user.email]);
   useEffect(() => {
-    fetch("http://localhost:5000/booked-tutors")
-      .then((res) => res.json())
+    if (!user.email) {
+      setBookedTutors([]); // Optionally reset state if no user email
+      setLoading(false);
+      return;
+    }
+  
+    fetch(`http://localhost:5000/booked-tutors`, {
+      method: "GET",
+      credentials: "include", // Include cookies for authentication
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to fetch booked tutors");
+        }
+        return res.json();
+      })
       .then((data) => {
-        console.log(data);
         setBookedTutors(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching booked tutors:", error);
+      })
+      .finally(() => {
+        setLoading(false); // Ensure loading is set to false regardless of success or failure
       });
   }, [user.email]);
+  
 
-  // Fetch booked tutors
-//   useEffect(() => {
-//     fetch(`http://localhost:5000/booked-tutors?email=${user.email}`)
-//       .then((res) => res.json())
-//       .then((data) => {
-//         setBookedTutors(data);
-//       })
-//       .catch((error) => console.error("Error fetching booked tutors:", error));
-//   }, [user.email]);
+  if (loading) {
+    return <p className="text-center">Loading booked tutors...</p>;
+  }
 
   return (
     <div>

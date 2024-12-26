@@ -9,13 +9,16 @@ const BestTutors = () => {
 
   // Fetch all tutors
   useEffect(() => {
-    fetch("http://localhost:5000/tutorials")
+    fetch("http://localhost:5000/tutorials",{
+      credentials:"include",
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
         setTutors(data);
         setFilteredTutors(data); // Initialize filtered tutors
-      });
+      })
+      .catch(error=>Navigate('/signIn'))
   }, [setTutors]);
 
   // Filter tutors based on the search query

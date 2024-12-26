@@ -25,6 +25,7 @@ const UpdateTutorials = () => {
     try {
       const response = await fetch(`http://localhost:5000/tutorials/${_id}`, {
         method: "PUT",
+          credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

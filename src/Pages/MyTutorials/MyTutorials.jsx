@@ -6,11 +6,12 @@ const MyTutorials = () => {
   const { user, setTutorials, tutorials } = UseAuth();
   const [loading, setLoading] = useState(true);
 
-
   // Fetch tutorials created by the logged-in user
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:5000/tutorials?email=${user.email}`)
+    fetch(`http://localhost:5000/tutorials?email=${user.email}`, {
+      credentials: "include", // Ensures cookies are sent with the request
+    })
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to fetch tutorials");
@@ -18,7 +19,6 @@ const MyTutorials = () => {
         return res.json();
       })
       .then((data) => {
-        // console.log(data);
         setTutorials(data);
         setLoading(false);
       })
@@ -32,6 +32,7 @@ const MyTutorials = () => {
   const handleDelete = (id) => {
     fetch(`http://localhost:5000/tutorials/${id}`, {
       method: "DELETE",
+      credentials: "include", // Include cookies for authentication
     })
       .then((res) => res.json())
       .then((data) => {
@@ -39,7 +40,8 @@ const MyTutorials = () => {
           const remainingTutorials = tutorials.filter((t) => t._id !== id);
           setTutorials(remainingTutorials);
         }
-      });
+      })
+      .catch((error) => console.error("Error deleting tutorial:", error));
   };
 
   if (loading) {
@@ -52,7 +54,9 @@ const MyTutorials = () => {
 
   return (
     <div>
-      <h2 className="text-3xl text-center mb-6">My Posted Tutorials: {tutorials.length}</h2>
+      <h2 className="text-3xl text-center mb-6">
+        My Posted Tutorials: {tutorials.length}
+      </h2>
       <div className="overflow-x-auto">
         <table className="table table-zebra w-full">
           {/* Table Head */}
