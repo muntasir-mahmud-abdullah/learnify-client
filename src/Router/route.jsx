@@ -28,7 +28,7 @@ const router = createBrowserRouter([
       //   path: "languages/:id",
       //   element: <LanguageDetails></LanguageDetails>,
       //   loader: ({ params }) =>
-      //     fetch(`http://localhost:5000/languages/${params.id}`),
+      //     fetch(`https://learnify-server-blush.vercel.app/languages/${params.id}`),
       // },
       {
         path: "tutorials/:id",
@@ -38,32 +38,66 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/tutorials/${params.id}`),
+          fetch(
+            `https://learnify-server-blush.vercel.app/tutorials/${params.id}`
+          ),
       },
       {
-        path:'findTutors',
-        element:<PrivateRoute> <BestTutors></BestTutors> </PrivateRoute>
+        path: "findTutors",
+        element: (
+          <PrivateRoute>
+            {" "}
+            <BestTutors></BestTutors>{" "}
+          </PrivateRoute>
+        ),
       },
       {
-        path:'find-tutors/:category',
-        element:<PrivateRoute> <FindTutors></FindTutors> </PrivateRoute>
+        path: "find-tutors/:category",
+        element: (
+          <PrivateRoute>
+            {" "}
+            <FindTutors></FindTutors>{" "}
+          </PrivateRoute>
+        ),
       },
       {
-        path:'addTutorial',
-        element:<PrivateRoute> <AddTutorial></AddTutorial></PrivateRoute>
+        path: "addTutorial",
+        element: (
+          <PrivateRoute>
+            {" "}
+            <AddTutorial></AddTutorial>
+          </PrivateRoute>
+        ),
       },
       {
-        path:'updateTutorial/:id',
-        element:<PrivateRoute><UpdateTutorials></UpdateTutorials></PrivateRoute>,
-        loader:({params}) => fetch(`http://localhost:5000/tutorials/${params.id}`)
+        path: "updateTutorial/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateTutorials></UpdateTutorials>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(
+            `https://learnify-server-blush.vercel.app/tutorials/${params.id}`
+          ),
       },
       {
-        path:'myTutorial',
-        element:<PrivateRoute> <MyTutorials></MyTutorials></PrivateRoute>
+        path: "myTutorial",
+        element: (
+          <PrivateRoute>
+            {" "}
+            <MyTutorials></MyTutorials>
+          </PrivateRoute>
+        ),
       },
       {
-        path:'myBookedTutors',
-        element:<PrivateRoute> <MyBookedTutors></MyBookedTutors></PrivateRoute>
+        path: "myBookedTutors",
+        element: (
+          <PrivateRoute>
+            {" "}
+            <MyBookedTutors></MyBookedTutors>
+          </PrivateRoute>
+        ),
       },
 
       {

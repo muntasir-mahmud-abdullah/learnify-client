@@ -4,7 +4,7 @@ import LanguageCard from "./LanguageCard";
 const Languages = () => {
   const [languages, setlanguages] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/languages")
+    fetch("https://learnify-server-blush.vercel.app/languages")
       .then((res) => res.json())
       .then((data) => setlanguages(data));
   }, []);

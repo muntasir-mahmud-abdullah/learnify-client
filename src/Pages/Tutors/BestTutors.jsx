@@ -9,7 +9,7 @@ const BestTutors = () => {
 
   // Fetch all tutors
   useEffect(() => {
-    fetch("http://localhost:5000/tutorials")
+    fetch("https://learnify-server-blush.vercel.app/tutorials")
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

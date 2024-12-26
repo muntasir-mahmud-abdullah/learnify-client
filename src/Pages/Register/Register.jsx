@@ -23,7 +23,7 @@ const Register = () => {
         console.log("User Created:", result.user);
 
         // Send user details to backend
-        fetch("http://localhost:5000/register", {
+        fetch("https://learnify-server-blush.vercel.app/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name, email, photoURL }),
@@ -39,7 +39,7 @@ const Register = () => {
 
   // Fetch registered user count
   useEffect(() => {
-    fetch("http://localhost:5000/users/count")
+    fetch("https://learnify-server-blush.vercel.app/users/count")
       .then((res) => res.json())
       .then((data) => {
         setUserCount(data.count);

@@ -15,7 +15,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [tutorials, setTutorials] = useState([]);
-  const [tutors,setTutors] = useState([]);
+  const [tutors, setTutors] = useState([]);
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -35,21 +35,23 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth,async (currentUser) => {
-      if(currentUser?.email){
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser?.email) {
         setUser(currentUser);
-        const {data} = await axios.post(`http://localhost:5000/jwt`,{
-          email:currentUser?.email,
-        },
-        {withCredentials:true}
-      )
-        console.log(data)
-      }
-      else{
-        setUser(currentUser)
-        const {data} = await axios.get(`http://localhost:5000/logout`,
-        {withCredentials:true}
-      )
+        const { data } = await axios.post(
+          `https://learnify-server-blush.vercel.app/jwt`,
+          {
+            email: currentUser?.email,
+          },
+          { withCredentials: true }
+        );
+        console.log(data);
+      } else {
+        setUser(currentUser);
+        const { data } = await axios.get(
+          `https://learnify-server-blush.vercel.app/logout`,
+          { withCredentials: true }
+        );
       }
       setLoading(false);
       // console.log(currentUser);

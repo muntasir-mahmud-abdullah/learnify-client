@@ -1,10 +1,34 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import AuthContext from "../../Context/AuthContext/AuthContext";
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  const [profileImage, setProfileImage] = useState(""); // New state to store the profile image
+  const [name, setName] = useState(""); // New state to store the profile image
+
+  // Fetch user profile image from the backend if it's not already in user
+  useEffect(() => {
+    if (user?.email) {
+      // Assuming the backend has an endpoint to fetch user details with photoURL
+      fetch(
+        `https://learnify-server-blush.vercel.app/user-profile?email=${user.email}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setProfileImage(
+            data.photoURL ||
+              "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+          );
+          setName(data.name);
+        })
+        .catch((error) =>
+          console.error("Error fetching user profile image:", error)
+        );
+    }
+  }, [user]);
 
   // Handle Sign-Out
   const handleSignOut = () => {
@@ -46,7 +70,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-base-100 sticky top-0 z-50">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -103,9 +127,21 @@ const Navbar = () => {
 
         {/* Auth Buttons */}
         {user ? (
-          <button onClick={handleSignOut} className="btn">
-            Sign Out
-          </button>
+          <>
+            <div className="w-10 rounded-full">
+              <img
+                alt="profile image"
+                src={profileImage}
+                className="w-10 h-10 rounded-full"
+                data-tooltip-id="my-tooltip"
+                data-tooltip-content={name}
+              />
+              <ReactTooltip id="my-tooltip" />
+            </div>
+            <button onClick={handleSignOut} className="btn">
+              Sign Out
+            </button>
+          </>
         ) : (
           <>
             <Link to="/register">Register</Link>

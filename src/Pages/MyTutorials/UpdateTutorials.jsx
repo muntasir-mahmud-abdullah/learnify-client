@@ -23,14 +23,17 @@ const UpdateTutorials = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:5000/tutorials/${_id}`, {
-        method: "PUT",
+      const response = await fetch(
+        `https://learnify-server-blush.vercel.app/my-tutorials/${_id}`,
+        {
+          method: "PUT",
           credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedTutorial),
-      });
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedTutorial),
+        }
+      );
       const data = await response.json();
       if (response.ok) {
         alert("Tutorial updated successfully!");

@@ -8,7 +8,7 @@ const GoogleSignIn = () => {
     signInWithGoogle().then((result) => {
       console.log(result.user);
       //generate token
-      // const {data} = await axios.post("http://localhost:5000/signIn",{email})
+      // const {data} = await axios.post("https://learnify-server-blush.vercel.app/signIn",{email})
     });
   };
   return (
