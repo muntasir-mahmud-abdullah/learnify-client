@@ -18,7 +18,7 @@ const MyTutorials = () => {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setTutorials(data);
         setLoading(false);
       })
