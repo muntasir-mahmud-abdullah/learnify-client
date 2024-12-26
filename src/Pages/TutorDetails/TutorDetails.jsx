@@ -7,6 +7,7 @@ const TutorDetails = () => {
   const handleBookedTutor = () => {
     fetch("http://localhost:5000/booked-tutors", {
       method: "POST",
+      credentials: "include",
       headers: {
         "content-type": "application/json",
       },

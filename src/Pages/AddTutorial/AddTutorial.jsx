@@ -24,6 +24,7 @@ const AddTutorial = () => {
 
     fetch("http://localhost:5000/tutorials", {
       method: "POST",
+      credentials: "include",
       headers: {
         "content-type": "application/json",
       },
