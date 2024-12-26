@@ -6,44 +6,43 @@ import { Tooltip as ReactTooltip } from "react-tooltip";
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
-  const [profileImage, setProfileImage] = useState(""); // New state to store the profile image
-  const [name, setName] = useState(""); // New state to store the profile image
+  const [profileImage, setProfileImage] = useState(
+    "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+  ); // Default profile image
+  const [name, setName] = useState("User");
 
-  // Fetch user profile image from the backend if it's not already in user
   useEffect(() => {
     if (user?.email) {
-      // Assuming the backend has an endpoint to fetch user details with photoURL
       fetch(
         `https://learnify-server-blush.vercel.app/user-profile?email=${user.email}`
       )
         .then((response) => response.json())
         .then((data) => {
-          setProfileImage(
-            data.photoURL ||
-              "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-          );
-          setName(data.name);
+          setProfileImage(data.photoURL || profileImage);
+          setName(data.name || "User");
         })
         .catch((error) =>
-          console.error("Error fetching user profile image:", error)
+          console.error("Error fetching user profile:", error)
         );
     }
   }, [user]);
 
-  // Handle Sign-Out
-  const handleSignOut = () => {
-    signOutUser().then(() => {
+  const handleSignOut = async () => {
+    try {
+      await signOutUser();
       console.log("Successful sign out");
-    });
+      alert("You have been signed out successfully.");
+    } catch (error) {
+      console.error("Error signing out:", error);
+      alert("Sign-out failed. Please try again.");
+    }
   };
 
-  // Toggle Theme
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
   };
 
-  // Apply Theme and Persist in LocalStorage
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
@@ -102,8 +101,7 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end flex items-center gap-4">
-        {/* Theme Toggle */}
-        <label className="swap swap-rotate">
+        <label className="swap swap-rotate" aria-label="Toggle Theme">
           <input
             type="checkbox"
             onChange={toggleTheme}
@@ -124,13 +122,11 @@ const Navbar = () => {
             <path d="M12 2a1 1 0 011 1v2a1 1 0 01-2 0V3a1 1 0 011-1zm5.66 3.34a1 1 0 01.71 1.71l-1.41 1.41a1 1 0 01-1.41-1.41l1.41-1.41a1 1 0 01.7-.3zM21 11a1 1 0 011 1v2a1 1 0 01-2 0v-2a1 1 0 011-1zM17.66 17.66a1 1 0 01-1.41 0l-1.41-1.41a1 1 0 011.41-1.41l1.41 1.41a1 1 0 010 1.41zM12 18a1 1 0 011 1v2a1 1 0 01-2 0v-2a1 1 0 011-1zM6.34 17.66a1 1 0 010-1.41l1.41-1.41a1 1 0 011.41 1.41l-1.41 1.41a1 1 0 01-1.41 0zM4 13H3a1 1 0 010-2h1a1 1 0 010 2zm1.34-5.66a1 1 0 01-.3-.7 1 1 0 01.3-.71L6.45 5.23a1 1 0 011.41 1.41L6.45 8.05a1 1 0 01-1.41 0z" />
           </svg>
         </label>
-
-        {/* Auth Buttons */}
         {user ? (
           <>
             <div className="w-10 rounded-full">
               <img
-                alt="profile image"
+                alt="User Profile"
                 src={profileImage}
                 className="w-10 h-10 rounded-full"
                 data-tooltip-id="my-tooltip"

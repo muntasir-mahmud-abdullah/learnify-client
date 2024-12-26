@@ -7,7 +7,11 @@ export default {
   theme: {
     extend: {colors: {
       primary: "#4CAF50", // Set this to your desired primary color
-    },},
+    },
+    spacing: {
+      'banner-height': '600px', // Define custom height for the banner
+    },
+  },
   },
   plugins: [
     require('daisyui'),

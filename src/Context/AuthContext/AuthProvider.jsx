@@ -50,7 +50,9 @@ const AuthProvider = ({ children }) => {
         setUser(currentUser);
         const { data } = await axios.get(
           `https://learnify-server-blush.vercel.app/logout`,
-          { withCredentials: true }
+          {
+            withCredentials: true,
+          }
         );
       }
       setLoading(false);

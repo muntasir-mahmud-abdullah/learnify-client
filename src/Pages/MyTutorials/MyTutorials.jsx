@@ -10,7 +10,7 @@ const MyTutorials = () => {
   useEffect(() => {
     setLoading(true);
     fetch(
-      `https://learnify-server-blush.vercel.app/my-tutorials?email=${user.email}`,
+      `https://learnify-server-blush.vercel.app/tutorials?email=${user.email}`,
       {
         credentials: "include", // Ensures cookies are sent with the request
       }
@@ -33,7 +33,10 @@ const MyTutorials = () => {
 
   // Handle delete functionality
   const handleDelete = (id) => {
-    fetch(`https://learnify-server-blush.vercel.app/my-tutorials/${id}`, {
+    const confirmDelete = window.confirm("Are you sure you want to delete this tutorial?");
+    if (!confirmDelete) return; // Cancel deletion if the user doesn't confirm
+
+    fetch(`https://learnify-server-blush.vercel.app/tutorials/${id}`, {
       method: "DELETE",
       credentials: "include", // Include cookies for authentication
     })
@@ -44,15 +47,26 @@ const MyTutorials = () => {
           setTutorials(remainingTutorials);
         }
       })
-      .catch((error) => console.error("Error deleting tutorial:", error));
+      .catch((error) => {
+        console.error("Error deleting tutorial:", error);
+        alert("There was an issue deleting the tutorial. Please try again.");
+      });
   };
 
   if (loading) {
-    return <div className="text-center">Loading tutorials...</div>;
+    return (
+      <div className="flex justify-center items-center py-16">
+        <div className="loader">Loading tutorials...</div>
+      </div>
+    );
   }
 
   if (tutorials.length === 0) {
-    return <div className="text-center">No tutorials posted yet.</div>;
+    return (
+      <div className="text-center">
+        <p>No tutorials posted yet. Start by posting your first tutorial!</p>
+      </div>
+    );
   }
 
   return (

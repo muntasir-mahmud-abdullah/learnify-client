@@ -68,17 +68,27 @@ const MyBookedTutors = () => {
   };
 
   if (loading) {
-    return <p className="text-center">Loading booked tutors...</p>;
+    return (
+      <div className="flex justify-center items-center py-16">
+        <div className="loader">Loading...</div>
+      </div>
+    );
   }
 
   return (
-    <div>
-      <h2 className="text-3xl text-center mb-6">My Booked Tutors</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {bookedTutors.length === 0 ? (
-          <p className="text-center col-span-full">No tutors booked yet.</p>
-        ) : (
-          bookedTutors.map((tutor) => (
+    <div className="container mx-auto px-4 py-8">
+      <h2 className="text-3xl text-center mb-6 font-bold text-gray-800">
+        My Booked Tutors
+      </h2>
+
+      {/* Display message if no tutors are booked */}
+      {bookedTutors.length === 0 ? (
+        <p className="text-center col-span-full text-lg text-gray-500">
+          No tutors booked yet.
+        </p>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {bookedTutors.map((tutor) => (
             <div
               key={tutor._id}
               className="card shadow-md border border-gray-200 rounded-lg p-4"
@@ -88,10 +98,12 @@ const MyBookedTutors = () => {
                 alt={tutor.name}
                 className="w-full h-48 object-cover rounded-lg mb-4"
               />
-              <h3 className="text-xl font-bold">{tutor.name}</h3>
+              <h3 className="text-xl font-bold text-gray-800">{tutor.name}</h3>
               <p className="text-gray-600">Language: {tutor.language}</p>
               <p className="text-gray-600">Price: ${tutor.price}/hour</p>
               <p className="text-gray-600">Reviews: {tutor.reviews || 0}</p>
+
+              {/* Review Button */}
               <button
                 className="btn btn-primary mt-4"
                 onClick={() => handleReview(tutor._id)}
@@ -99,9 +111,9 @@ const MyBookedTutors = () => {
                 Review
               </button>
             </div>
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

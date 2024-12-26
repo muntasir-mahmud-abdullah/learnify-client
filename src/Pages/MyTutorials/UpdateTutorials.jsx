@@ -13,6 +13,9 @@ const UpdateTutorials = () => {
     price: price || "",
   });
 
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   // Handle Input Change
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,9 +25,12 @@ const UpdateTutorials = () => {
   // Handle Form Submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setErrorMessage("");
+
     try {
       const response = await fetch(
-        `https://learnify-server-blush.vercel.app/my-tutorials/${_id}`,
+        `https://learnify-server-blush.vercel.app/tutorials/${_id}`,
         {
           method: "PUT",
           credentials: "include",
@@ -34,14 +40,18 @@ const UpdateTutorials = () => {
           body: JSON.stringify(updatedTutorial),
         }
       );
-      const data = await response.json();
+
       if (response.ok) {
         alert("Tutorial updated successfully!");
       } else {
-        alert("Failed to update tutorial");
+        const data = await response.json();
+        setErrorMessage(data.message || "Failed to update tutorial");
       }
     } catch (error) {
       console.error("Error updating tutorial:", error);
+      setErrorMessage("An error occurred while updating the tutorial.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -124,10 +134,19 @@ const UpdateTutorials = () => {
           />
         </div>
 
+        {/* Error Message */}
+        {errorMessage && (
+          <div className="text-red-500 text-center mb-4">{errorMessage}</div>
+        )}
+
         {/* Submit Button */}
         <div className="form-control mt-6">
-          <button type="submit" className="btn btn-primary w-full">
-            Update Tutorial
+          <button
+            type="submit"
+            className="btn btn-primary w-full"
+            disabled={loading}
+          >
+            {loading ? "Updating..." : "Update Tutorial"}
           </button>
         </div>
       </form>
