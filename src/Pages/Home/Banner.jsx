@@ -21,22 +21,19 @@ const Banner = () => {
       <Slider {...settings}>
         <div>
           <img
-            src="https://via.placeholder.com/1500x600/ff7f7f/333333?text=Banner+Image+1"
-            alt="Banner 1"
+            src="https://i.ibb.co.com/hHr0B6Y/high-angle-gaming-setup-indoors-23-2149829123.jpg"
             className="w-full h-[60vh] sm:h-[70vh] md:h-[80vh] object-cover"
           />
         </div>
         <div>
           <img
-            src="https://via.placeholder.com/1500x600/7f7fff/333333?text=Banner+Image+2"
-            alt="Banner 2"
+            src="https://i.ibb.co.com/sKcySMf/workspace-with-blank-computer-screen-autumn-decoration-workspace-with-computer-58797-1195.jpg"
             className="w-full h-[60vh] sm:h-[70vh] md:h-[80vh] object-cover"
           />
         </div>
         <div>
           <img
-            src="https://via.placeholder.com/1500x600/7fff7f/333333?text=Banner+Image+3"
-            alt="Banner 3"
+            src="https://i.ibb.co.com/ChbBVjN/halfclosed-laptop-wooden-table-screen-glows-with-colors-169016-33669.jpg"
             className="w-full h-[60vh] sm:h-[70vh] md:h-[80vh] object-cover"
           />
         </div>
