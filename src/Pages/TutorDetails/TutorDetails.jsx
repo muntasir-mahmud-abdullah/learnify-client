@@ -5,7 +5,7 @@ const TutorDetails = () => {
   const tutor = useLoaderData();
   const { _id, name, image, language, description, price, reviews } = tutor;
   const handleBookedTutor = () => {
-    fetch("https://learnify-server-blush.vercel.app/booked-tutors", {
+    fetch("http://localhost:5000/booked-tutors", {
       method: "POST",
       credentials: "include",
       headers: {

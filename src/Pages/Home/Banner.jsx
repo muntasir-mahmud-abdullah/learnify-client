@@ -21,26 +21,26 @@ const Banner = () => {
       <Slider {...settings}>
         <div>
           <img
-            src="https://i.ibb.co.com/hHr0B6Y/high-angle-gaming-setup-indoors-23-2149829123.jpg"
-            className="w-full h-[60vh] sm:h-[70vh] md:h-[80vh] object-cover"
+            src="https://i.ibb.co.com/bRv8k53w/woman-hand-picking-book-from-bookshelf-library-university-college-high-school-bookshop-1048944-21899.jpg"
+            className="w-full h-[60vh] sm:h-[70vh] md:h-[80vh] object-cover opacity-50"
           />
         </div>
         <div>
           <img
-            src="https://i.ibb.co.com/sKcySMf/workspace-with-blank-computer-screen-autumn-decoration-workspace-with-computer-58797-1195.jpg"
-            className="w-full h-[60vh] sm:h-[70vh] md:h-[80vh] object-cover"
+            src="https://i.ibb.co.com/v6D1JhJz/graduation-attire-displayed-college-campus-60438-3682.jpg"
+            className="w-full h-[60vh] sm:h-[70vh] md:h-[80vh] object-cover opacity-50"
           />
         </div>
         <div>
           <img
-            src="https://i.ibb.co.com/ChbBVjN/halfclosed-laptop-wooden-table-screen-glows-with-colors-169016-33669.jpg"
-            className="w-full h-[60vh] sm:h-[70vh] md:h-[80vh] object-cover"
+            src="https://i.ibb.co.com/vvXX1XKK/empty-chairs-tables-row-1048944-19298211.jpg"
+            className="w-full h-[60vh] sm:h-[70vh] md:h-[80vh] object-cover opacity-50"
           />
         </div>
       </Slider>
 
       {/* Optional Text Overlay */}
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
         <h2 className="text-4xl font-bold mb-4 sm:text-5xl md:text-6xl">
           Welcome to Our Platform
         </h2>

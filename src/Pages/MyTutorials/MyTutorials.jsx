@@ -9,12 +9,9 @@ const MyTutorials = () => {
   // Fetch tutorials created by the logged-in user
   useEffect(() => {
     setLoading(true);
-    fetch(
-      `https://learnify-server-blush.vercel.app/tutorials?email=${user.email}`,
-      {
-        credentials: "include", // Ensures cookies are sent with the request
-      }
-    )
+    fetch(`http://localhost:5000/tutorials?email=${user.email}`, {
+      credentials: "include", // Ensures cookies are sent with the request
+    })
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to fetch tutorials");
@@ -38,7 +35,7 @@ const MyTutorials = () => {
     );
     if (!confirmDelete) return; // Cancel deletion if the user doesn't confirm
 
-    fetch(`https://learnify-server-blush.vercel.app/tutorials/${id}`, {
+    fetch(`http://localhost:5000/tutorials/${id}`, {
       method: "DELETE",
       credentials: "include", // Include cookies for authentication
     })

@@ -6,7 +6,7 @@ const Languages = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://learnify-server-blush.vercel.app/languages")
+    fetch("http://localhost:5000/languages")
       .then((res) => res.json())
       .then((data) => {
         setLanguages(data);

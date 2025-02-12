@@ -13,9 +13,7 @@ const Navbar = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(
-        `https://learnify-server-blush.vercel.app/user-profile?email=${user.email}`
-      )
+      fetch(`http://localhost:5000/user-profile?email=${user.email}`)
         .then((response) => response.json())
         .then((data) => {
           setProfileImage(data.photoURL || profileImage);
