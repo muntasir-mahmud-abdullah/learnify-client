@@ -39,7 +39,7 @@ const AuthProvider = ({ children }) => {
       if (currentUser?.email) {
         setUser(currentUser);
         const { data } = await axios.post(
-          `http://localhost:5000/jwt`,
+          `https://learnify-server-blush.vercel.app/jwt`,
           {
             email: currentUser?.email,
           },
@@ -48,9 +48,12 @@ const AuthProvider = ({ children }) => {
         console.log(data);
       } else {
         setUser(currentUser);
-        const { data } = await axios.get(`http://localhost:5000/logout`, {
-          withCredentials: true,
-        });
+        const { data } = await axios.get(
+          `https://learnify-server-blush.vercel.app/logout`,
+          {
+            withCredentials: true,
+          }
+        );
       }
       setLoading(false);
       // console.log(currentUser);

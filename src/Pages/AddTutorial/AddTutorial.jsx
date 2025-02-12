@@ -22,7 +22,7 @@ const AddTutorial = () => {
     e.preventDefault();
     console.log("Form submitted:", tutorial); // Replace with actual API call
 
-    fetch("http://localhost:5000/tutorials", {
+    fetch("https://learnify-server-blush.vercel.app/tutorials", {
       method: "POST",
       credentials: "include",
       headers: {

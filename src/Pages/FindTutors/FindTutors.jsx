@@ -8,7 +8,9 @@ const FindTutors = () => {
 
   // Fetch tutors based on the category
   useEffect(() => {
-    fetch(`http://localhost:5000/tutorials/category/${category}`)
+    fetch(
+      `https://learnify-server-blush.vercel.app/tutorials/category/${category}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setTutors(data);

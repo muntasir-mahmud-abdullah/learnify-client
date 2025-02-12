@@ -29,14 +29,17 @@ const UpdateTutorials = () => {
     setErrorMessage("");
 
     try {
-      const response = await fetch(`http://localhost:5000/tutorials/${_id}`, {
-        method: "PUT",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedTutorial),
-      });
+      const response = await fetch(
+        `https://learnify-server-blush.vercel.app/tutorials/${_id}`,
+        {
+          method: "PUT",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedTutorial),
+        }
+      );
 
       if (response.ok) {
         alert("Tutorial updated successfully!");

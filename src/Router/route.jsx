@@ -28,7 +28,7 @@ const router = createBrowserRouter([
       //   path: "languages/:id",
       //   element: <LanguageDetails></LanguageDetails>,
       //   loader: ({ params }) =>
-      //     fetch(`http://localhost:5000/languages/${params.id}`),
+      //     fetch(`https://learnify-server-blush.vercel.app/languages/${params.id}`),
       // },
       {
         path: "tutorials/:id",
@@ -38,7 +38,9 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/tutorials/${params.id}`),
+          fetch(
+            `https://learnify-server-blush.vercel.app/tutorials/${params.id}`
+          ),
       },
       {
         path: "findTutors",
@@ -75,7 +77,9 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/tutorials/${params.id}`),
+          fetch(
+            `https://learnify-server-blush.vercel.app/tutorials/${params.id}`
+          ),
       },
       {
         path: "myTutorial",
