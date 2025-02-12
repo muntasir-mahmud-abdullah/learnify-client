@@ -4,6 +4,7 @@ import { Link, useLoaderData } from "react-router-dom";
 const TutorDetails = () => {
   const tutor = useLoaderData();
   const { _id, name, image, language, description, price, reviews } = tutor;
+  console.log(tutor);
   const handleBookedTutor = () => {
     fetch("https://learnify-server-blush.vercel.app/booked-tutors", {
       method: "POST",

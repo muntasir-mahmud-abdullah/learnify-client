@@ -78,7 +78,7 @@ const SignIn = () => {
           </form>
 
           {/* Google Sign-In */}
-          <GoogleSignIn redirectTo={from}></GoogleSignIn>
+          {/* <GoogleSignIn redirectTo={from}></GoogleSignIn> */}
         </div>
       </div>
     </div>

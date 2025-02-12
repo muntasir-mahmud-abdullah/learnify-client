@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UseAuth from "../../Hooks/UseAuth";
 
 const AddTutorial = () => {
   const { user } = UseAuth(); // Get logged-in user details
   const [tutorial, setTutorial] = useState({
-    name: user?.name || "",
+    // name: user?.name || "",
     email: user?.email || "",
     image: "",
     language: "",
@@ -12,6 +12,21 @@ const AddTutorial = () => {
     description: "",
     reviews: 0, // Default review count
   });
+
+  const [name, setName] = useState("User");
+
+  useEffect(() => {
+    if (user?.email) {
+      fetch(
+        `https://learnify-server-blush.vercel.app/user-profile?email=${user.email}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setName(data.name || "User");
+        })
+        .catch((error) => console.error("Error fetching user profile:", error));
+    }
+  }, [user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -51,7 +66,7 @@ const AddTutorial = () => {
           <input
             type="text"
             name="name"
-            value={tutorial.name}
+            value={name}
             onChange={handleChange}
             className="input input-bordered"
             readOnly

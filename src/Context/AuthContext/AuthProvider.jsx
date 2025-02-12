@@ -42,6 +42,7 @@ const AuthProvider = ({ children }) => {
           `https://learnify-server-blush.vercel.app/jwt`,
           {
             email: currentUser?.email,
+            name: currentUser?.displayName,
           },
           { withCredentials: true }
         );

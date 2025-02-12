@@ -5,6 +5,20 @@ import { Link } from "react-router-dom";
 const MyTutorials = () => {
   const { user, setTutorials, tutorials } = UseAuth();
   const [loading, setLoading] = useState(true);
+  const [name, setName] = useState("User");
+
+  useEffect(() => {
+    if (user?.email) {
+      fetch(
+        `https://learnify-server-blush.vercel.app/user-profile?email=${user.email}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setName(data.name || "User");
+        })
+        .catch((error) => console.error("Error fetching user profile:", error));
+    }
+  }, [user]);
 
   // Fetch tutorials created by the logged-in user
   useEffect(() => {
@@ -95,7 +109,7 @@ const MyTutorials = () => {
             {tutorials.map((tutorial, index) => (
               <tr key={tutorial._id}>
                 <th>{index + 1}</th>
-                <td>{tutorial.name}</td>
+                <td>{name}</td>
                 <td>
                   <img
                     src={tutorial.image}

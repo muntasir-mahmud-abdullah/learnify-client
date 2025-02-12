@@ -120,7 +120,7 @@ const Register = () => {
               </button>
             </div>
           </form>
-          <GoogleSignIn />
+          {/* <GoogleSignIn /> */}
           {/* Error and Success Messages */}
           {error && <div className="text-red-500 text-center">{error}</div>}
           {success && (
