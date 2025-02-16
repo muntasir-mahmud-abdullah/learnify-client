@@ -14,7 +14,7 @@ const MyBookedTutors = () => {
       return;
     }
 
-    fetch(`https://learnify-server-blush.vercel.app/booked-tutors`, {
+    fetch(`http://localhost:5000/booked-tutors?email=${user.email}`, {
       method: "GET",
       credentials: "include", // Include cookies for authentication
     })
@@ -37,15 +37,12 @@ const MyBookedTutors = () => {
 
   // Handle Review Increment
   const handleReview = (id) => {
-    fetch(
-      `https://learnify-server-blush.vercel.app/booked-tutors/${id}/review`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
+    fetch(`http://localhost:5000/booked-tutors/${id}/review`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to increment review count");
