@@ -9,13 +9,13 @@ const Statistics = () => {
 
   useEffect(() => {
     Promise.all([
-      fetch("https://learnify-server-blush.vercel.app/reviews/count")
+      fetch("http://localhost:5000/reviews/count")
         .then((res) => res.json())
         .then((data) => setTotalReviews(data.totalReviews)),
-      fetch("https://learnify-server-blush.vercel.app/users/count")
+      fetch("http://localhost:5000/users/count")
         .then((res) => res.json())
         .then((data) => setUserCount(data.count)),
-      fetch("https://learnify-server-blush.vercel.app/tutors/count")
+      fetch("http://localhost:5000/tutors/count")
         .then((res) => res.json())
         .then((data) => setTutorsCount(data.count)),
     ])

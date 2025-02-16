@@ -10,20 +10,22 @@ const Navbar = () => {
     "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
   ); // Default profile image
   const [name, setName] = useState("User");
-
   useEffect(() => {
     if (user?.email) {
-      fetch(
-        `https://learnify-server-blush.vercel.app/user-profile?email=${user.email}`
-      )
+      fetch(`http://localhost:5000/user-profile?email=${user.email}`, {
+        method: "GET",
+        credentials: "include",
+      })
         .then((response) => response.json())
         .then((data) => {
+          console.log(data);
           setProfileImage(data.photoURL || profileImage);
           setName(data.name || "User");
         })
         .catch((error) => console.error("Error fetching user profile:", error));
     }
   }, [user]);
+  
 
   const handleSignOut = async () => {
     try {
