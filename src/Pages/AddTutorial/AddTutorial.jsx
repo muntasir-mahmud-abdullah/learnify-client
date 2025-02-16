@@ -17,7 +17,9 @@ const AddTutorial = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:5000/user-profile?email=${user.email}`)
+      fetch(
+        `https://learnify-server-blush.vercel.app/user-profile?email=${user.email}`
+      )
         .then((response) => response.json())
         .then((data) => {
           setName(data.name || "User");
@@ -35,7 +37,7 @@ const AddTutorial = () => {
     e.preventDefault();
     console.log("Form submitted:", tutorial); // Replace with actual API call
 
-    fetch("http://localhost:5000/tutorials", {
+    fetch("https://learnify-server-blush.vercel.app/tutorials", {
       method: "POST",
       credentials: "include",
       headers: {

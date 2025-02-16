@@ -12,10 +12,13 @@ const Navbar = () => {
   const [name, setName] = useState("User");
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:5000/user-profile?email=${user.email}`, {
-        method: "GET",
-        credentials: "include",
-      })
+      fetch(
+        `https://learnify-server-blush.vercel.app/user-profile?email=${user.email}`,
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      )
         .then((response) => response.json())
         .then((data) => {
           console.log(data);

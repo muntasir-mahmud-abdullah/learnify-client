@@ -7,44 +7,49 @@ const MyBookedTutors = () => {
   const [loading, setLoading] = useState(true);
 
   // Fetch booked tutors for the logged-in user
-// Client-side: Fetch booked tutors
-useEffect(() => {
-  if (!user.email) {
-    setBookedTutors([]);
-    setLoading(false);
-    return;
-  }
-
-  fetch(`http://localhost:5000/booked-tutors?user_email=${user.email}`, {
-    method: "GET",
-    credentials: "include", // Include cookies for authentication
-  })
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error("Failed to fetch booked tutors");
-      }
-      return res.json();
-    })
-    .then((data) => {
-      setBookedTutors(data);
-    })
-    .catch((error) => {
-      console.error("Error fetching booked tutors:", error);
-    })
-    .finally(() => {
+  // Client-side: Fetch booked tutors
+  useEffect(() => {
+    if (!user.email) {
+      setBookedTutors([]);
       setLoading(false);
-    });
-}, [user.email]);
+      return;
+    }
 
+    fetch(
+      `https://learnify-server-blush.vercel.app/booked-tutors?user_email=${user.email}`,
+      {
+        method: "GET",
+        credentials: "include", // Include cookies for authentication
+      }
+    )
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to fetch booked tutors");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setBookedTutors(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching booked tutors:", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [user.email]);
 
   // Handle Review Increment
   const handleReview = (id) => {
-    fetch(`http://localhost:5000/booked-tutors/${id}/review`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    fetch(
+      `https://learnify-server-blush.vercel.app/booked-tutors/${id}/review`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to increment review count");

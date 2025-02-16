@@ -17,7 +17,7 @@ const TutorDetails = () => {
       price,
     };
 
-    fetch("http://localhost:5000/booked-tutors", {
+    fetch("https://learnify-server-blush.vercel.app/booked-tutors", {
       method: "POST",
       credentials: "include",
       headers: {
