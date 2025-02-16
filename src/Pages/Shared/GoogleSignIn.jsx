@@ -13,9 +13,12 @@ const GoogleSignIn = () => {
       const { email } = result.user;
 
       // Generate token
-      const response = await axios.post("http://localhost:5000/signIn", {
-        email,
-      });
+      const response = await axios.post(
+        "https://learnify-server-blush.vercel.app/signIn",
+        {
+          email,
+        }
+      );
 
       if (response.status === 200) {
         console.log("Token generated:", response.data.token);
