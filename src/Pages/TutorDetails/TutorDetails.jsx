@@ -1,23 +1,39 @@
 import React from "react";
 import { Link, useLoaderData } from "react-router-dom";
+import UseAuth from "../../Hooks/UseAuth";
 
 const TutorDetails = () => {
+  const { user } = UseAuth();
   const tutor = useLoaderData();
   const { _id, name, image, language, description, price, reviews } = tutor;
   console.log(tutor);
   const handleBookedTutor = () => {
+    const bookedTutor = {
+      tutor_id: _id,
+      user_email: user.email,
+      name,
+      image,
+      language,
+      price,
+    };
+
     fetch("http://localhost:5000/booked-tutors", {
       method: "POST",
       credentials: "include",
       headers: {
-        "content-type": "application/json",
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(tutor),
+      body: JSON.stringify(bookedTutor),
     })
-      .then((res) => res.json())
+      .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-      });
+        if (data.success) {
+          alert("Tutor booked successfully! ✅");
+        } else {
+          alert(data.message || "Failed to book tutor. ❌");
+        }
+      })
+      .catch((error) => console.error("Error booking tutor:", error));
   };
 
   return (

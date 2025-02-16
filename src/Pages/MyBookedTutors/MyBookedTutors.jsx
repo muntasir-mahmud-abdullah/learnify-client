@@ -7,33 +7,35 @@ const MyBookedTutors = () => {
   const [loading, setLoading] = useState(true);
 
   // Fetch booked tutors for the logged-in user
-  useEffect(() => {
-    if (!user.email) {
-      setBookedTutors([]);
-      setLoading(false);
-      return;
-    }
+// Client-side: Fetch booked tutors
+useEffect(() => {
+  if (!user.email) {
+    setBookedTutors([]);
+    setLoading(false);
+    return;
+  }
 
-    fetch(`http://localhost:5000/booked-tutors?email=${user.email}`, {
-      method: "GET",
-      credentials: "include", // Include cookies for authentication
+  fetch(`http://localhost:5000/booked-tutors?user_email=${user.email}`, {
+    method: "GET",
+    credentials: "include", // Include cookies for authentication
+  })
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Failed to fetch booked tutors");
+      }
+      return res.json();
     })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Failed to fetch booked tutors");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setBookedTutors(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching booked tutors:", error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [user.email]);
+    .then((data) => {
+      setBookedTutors(data);
+    })
+    .catch((error) => {
+      console.error("Error fetching booked tutors:", error);
+    })
+    .finally(() => {
+      setLoading(false);
+    });
+}, [user.email]);
+
 
   // Handle Review Increment
   const handleReview = (id) => {
