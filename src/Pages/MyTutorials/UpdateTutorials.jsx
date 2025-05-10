@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useLoaderData } from "react-router-dom";
-
+import {toast} from "react-toastify"
 const UpdateTutorials = () => {
   const tutorial = useLoaderData(); // Load tutorial data from the router
   const { _id, name, image, language, description, price } = tutorial;
@@ -42,13 +42,14 @@ const UpdateTutorials = () => {
       );
 
       if (response.ok) {
-        alert("Tutorial updated successfully!");
+        toast("Tutorial updated successfully!");
       } else {
         const data = await response.json();
         setErrorMessage(data.message || "Failed to update tutorial");
       }
     } catch (error) {
-      console.error("Error updating tutorial:", error);
+      // console.error("Error updating tutorial:", error);
+      toast.error("Error updating tutorial")
       setErrorMessage("An error occurred while updating the tutorial.");
     } finally {
       setLoading(false);

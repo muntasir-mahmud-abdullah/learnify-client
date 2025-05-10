@@ -1,5 +1,3 @@
-import React from "react";
-
 const Footer = () => {
   return (
     <footer className="bg-base-200 p-10">
@@ -18,27 +16,27 @@ const Footer = () => {
           <h3 className="text-lg font-semibold text-primary">Quick Links</h3>
           <ul className="mt-2 space-y-2">
             <li>
-              <a href="/home" className="link link-hover">
+              <a href="/" className="link link-hover">
                 Home
               </a>
             </li>
             <li>
-              <a href="/find-tutors" className="link link-hover">
+              <a href="/findTutors" className="link link-hover">
                 Find Tutors
               </a>
             </li>
             <li>
-              <a href="/add-tutorials" className="link link-hover">
+              <a href="/addTutorial" className="link link-hover">
                 Add Tutorials
               </a>
             </li>
             <li>
-              <a href="/my-tutorials" className="link link-hover">
+              <a href="/myTutorial" className="link link-hover">
                 My Tutorials
               </a>
             </li>
             <li>
-              <a href="/my-booked-tutors" className="link link-hover">
+              <a href="/myBookedTutors" className="link link-hover">
                 My Booked Tutors
               </a>
             </li>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import UseAuth from "../../Hooks/UseAuth";
-
+import {toast} from "react-toastify"
 const AddTutorial = () => {
   const { user } = UseAuth(); // Get logged-in user details
   const [tutorial, setTutorial] = useState({
@@ -24,7 +24,7 @@ const AddTutorial = () => {
         .then((data) => {
           setName(data.name || "User");
         })
-        .catch((error) => console.error("Error fetching user profile:", error));
+        .catch((error) => toast.error("Error fetching user profile:", error));
     }
   }, [user]);
 
@@ -35,7 +35,7 @@ const AddTutorial = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", tutorial); // Replace with actual API call
+    // console.log("Form submitted:", tutorial); // Replace with actual API call
 
     fetch("https://learnify-server-blush.vercel.app/tutorials", {
       method: "POST",

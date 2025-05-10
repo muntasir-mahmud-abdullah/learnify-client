@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const LanguageCard = ({ language }) => {
   const { _id, name, logo } = language;
-  console.log(name);
+  // console.log(name);
   
   return (
     <div className="card bg-base-100 shadow-md hover:shadow-lg hover:scale-105 transition-all cursor-pointer">

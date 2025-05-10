@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import {toast } from 'react-toastify';
 const Statistics = () => {
   const [userCount, setUserCount] = useState(0);
   const [tutorsCount, setTutorsCount] = useState(0);
@@ -21,7 +21,8 @@ const Statistics = () => {
     ])
       .then(() => setLoading(false))
       .catch((error) => {
-        console.error("Error fetching statistics:", error);
+        // console.error("Error fetching statistics:", error);
+        toast.error("Error fetching statistics")
         setLoading(false);
       });
   }, []);
@@ -29,7 +30,7 @@ const Statistics = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Title Section */}
-      <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
+      <h2 className="text-3xl font-bold text-center text-primary mb-8">
         Statistics Overview
       </h2>
 

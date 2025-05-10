@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import UseAuth from "../../Hooks/UseAuth";
 import { Link } from "react-router-dom";
-
+import {toast } from 'react-toastify';
 const MyTutorials = () => {
   const { user, setTutorials, tutorials } = UseAuth();
   const [loading, setLoading] = useState(true);
@@ -16,7 +16,11 @@ const MyTutorials = () => {
         .then((data) => {
           setName(data.name || "User");
         })
-        .catch((error) => console.error("Error fetching user profile:", error));
+        .catch((error) => {
+          // console.error("Error fetching user profile:", error);
+          toast.error("Error fetching user profile");
+        }
+          );
     }
   }, [user]);
 
@@ -40,7 +44,8 @@ const MyTutorials = () => {
         setLoading(false);
       })
       .catch((error) => {
-        console.error(error);
+        // console.error(error);
+        toast.error('error setting tutorial')
         setLoading(false);
       });
   }, [user.email, setTutorials]);
@@ -65,7 +70,7 @@ const MyTutorials = () => {
       })
       .catch((error) => {
         console.error("Error deleting tutorial:", error);
-        alert("There was an issue deleting the tutorial. Please try again.");
+        toast("There was an issue deleting the tutorial. Please try again.");
       });
   };
 

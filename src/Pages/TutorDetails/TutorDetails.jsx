@@ -1,12 +1,12 @@
 import React from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import UseAuth from "../../Hooks/UseAuth";
-
+import {toast} from 'react-toastify'
 const TutorDetails = () => {
   const { user } = UseAuth();
   const tutor = useLoaderData();
   const { _id, name, image, language, description, price, reviews } = tutor;
-  console.log(tutor);
+  // console.log(tutor);
   const handleBookedTutor = () => {
     const bookedTutor = {
       tutor_id: _id,
@@ -28,12 +28,15 @@ const TutorDetails = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          alert("Tutor booked successfully! ✅");
+          toast("Tutor booked successfully! ✅");
         } else {
-          alert(data.message || "Failed to book tutor. ❌");
+          toast(data.message || "Failed to book tutor. ❌");
         }
       })
-      .catch((error) => console.error("Error booking tutor:", error));
+      .catch((error) => {
+        // console.error("Error booking tutor:", error)
+        toast.error("Error booking tutor")
+      });
   };
 
   return (

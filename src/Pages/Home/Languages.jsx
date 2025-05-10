@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import LanguageCard from "./LanguageCard";
+import { toast } from "react-toastify";
 
 const Languages = () => {
   const [languages, setLanguages] = useState([]);
@@ -13,7 +14,8 @@ const Languages = () => {
         setLoading(false);
       })
       .catch((error) => {
-        console.error("Error fetching languages:", error);
+        // console.error("Error fetching languages:", error);
+        toast.error("Error fetching languages")
         setLoading(false);
       });
   }, []);

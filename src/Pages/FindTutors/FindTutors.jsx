@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-
+import {toast} from "react-toastify"
 const FindTutors = () => {
   const { category } = useParams(); // Get the category from the URL
   const [tutors, setTutors] = useState([]);
-  console.log(category);
+  // console.log(category);
 
   // Fetch tutors based on the category
   useEffect(() => {
@@ -15,7 +15,7 @@ const FindTutors = () => {
       .then((data) => {
         setTutors(data);
       })
-      .catch((error) => console.error("Error fetching tutors:", error));
+      .catch((error) => toast.error("Error fetching tutors:", error));
   }, [category]);
 
   return (

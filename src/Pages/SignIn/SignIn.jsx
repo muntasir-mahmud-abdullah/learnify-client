@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import AuthContext from '../../Context/AuthContext/AuthContext';
 import GoogleSignIn from '../Shared/GoogleSignIn';
 import { useLocation, useNavigate } from 'react-router-dom';
-
+import {toast} from "react-toastify"
 const SignIn = () => {
   const { signInUser } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -18,11 +18,12 @@ const SignIn = () => {
 
     signInUser(email, password)
       .then((result) => {
-        console.log('User signed in:', result.user);
+        // console.log('User signed in:', result.user);
         navigate(from, { replace: true });
       })
       .catch((err) => {
-        console.error('Sign-in error:', err.message);
+        // console.error('Sign-in error:', err.message);
+        toast.error("Sign In Error")
         setError('Failed to sign in. Please check your credentials.');
       });
   };

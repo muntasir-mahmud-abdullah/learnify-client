@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../../Context/AuthContext/AuthContext";
 import GoogleSignIn from "../Shared/GoogleSignIn";
-
+import {toast} from "react-toastify"
 const Register = () => {
   const { createUser } = useContext(AuthContext);
   const [userCount, setUserCount] = useState(0);
@@ -16,7 +16,10 @@ const Register = () => {
       .then((data) => {
         setUserCount(data.count);
       })
-      .catch((error) => console.error("Error fetching user count:", error));
+      .catch((error) =>{ 
+        // console.error("Error fetching user count:", error)
+        toast.error("Error fetching user count")
+      });
   }, []);
 
   const handleRegister = async (e) => {
@@ -33,7 +36,7 @@ const Register = () => {
 
     try {
       const result = await createUser(email, password);
-      console.log("User Created:", result.user);
+      // console.log("User Created:", result.user);
 
       // Send user details to backend
       const response = await fetch(

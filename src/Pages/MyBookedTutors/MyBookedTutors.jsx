@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import UseAuth from "../../Hooks/UseAuth";
-
+import {toast} from "react-toastify"
 const MyBookedTutors = () => {
   const { user } = UseAuth();
   const [bookedTutors, setBookedTutors] = useState([]);
@@ -29,10 +29,11 @@ const MyBookedTutors = () => {
         return res.json();
       })
       .then((data) => {
-        setBookedTutors(data);
+        setBookedTutors(data);  
       })
       .catch((error) => {
-        console.error("Error fetching booked tutors:", error);
+        // console.error("Error fetching booked tutors:", error);
+        toast.error("Error fetching booked tutors:");
       })
       .finally(() => {
         setLoading(false);
@@ -67,7 +68,8 @@ const MyBookedTutors = () => {
         );
       })
       .catch((error) =>
-        console.error("Error incrementing review count:", error)
+        // console.error("Error incrementing review count:", error);
+        toast.error("Error incrementing review count")
       );
   };
 

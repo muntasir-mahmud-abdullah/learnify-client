@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import AuthContext from "../../Context/AuthContext/AuthContext";
 import { Tooltip as ReactTooltip } from "react-tooltip";
-
+import {toast } from "react-toastify"
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
@@ -21,22 +21,26 @@ const Navbar = () => {
       )
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           setProfileImage(data.photoURL || profileImage);
           setName(data.name || "User");
         })
-        .catch((error) => console.error("Error fetching user profile:", error));
+        .catch((error) =>{
+          // console.error("Error fetching user profile:", error);
+          toast.error ("Error fetching user profile");
+        } );
     }
   }, [user]);
 
   const handleSignOut = async () => {
     try {
       await signOutUser();
-      console.log("Successful sign out");
-      alert("You have been signed out successfully.");
+      // console.log("Successful sign out");
+      toast("You have been signed out successfully.");
     } catch (error) {
-      console.error("Error signing out:", error);
-      alert("Sign-out failed. Please try again.");
+      // console.error("Error signing out:", error);
+      toast.error("Error signing out")
+      toast("Sign-out failed. Please try again.");
     }
   };
 

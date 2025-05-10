@@ -1,7 +1,7 @@
-import React, { useContext, useState } from "react";
-import AuthContext from "../../Context/AuthContext/AuthContext";
 import axios from "axios";
-
+import { useContext, useState } from "react";
+import { toast } from "react-toastify";
+import AuthContext from "../../Context/AuthContext/AuthContext";
 const GoogleSignIn = () => {
   const { signInWithGoogle } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
@@ -21,16 +21,18 @@ const GoogleSignIn = () => {
       );
 
       if (response.status === 200) {
-        console.log("Token generated:", response.data.token);
-        alert("Sign-in successful!");
+        // console.log("Token generated:", response.data.token);
+        toast("Sign-in successful!");
         // You can store the token securely here if needed
       } else {
-        console.error("Failed to generate token");
-        alert("Something went wrong, please try again.");
+        // console.error("Failed to generate token");
+        // alert("Something went wrong, please try again.");
+        toast.error("Failed to generate token");
       }
     } catch (error) {
-      console.error("Error during Google Sign-In:", error);
-      alert("Google Sign-In failed. Please try again.");
+      // console.error("Error during Google Sign-In:", error);
+
+      toast.error("Google Sign-In failed. Please try again.");
     } finally {
       setLoading(false);
     }
