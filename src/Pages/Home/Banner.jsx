@@ -1,7 +1,6 @@
-import React from "react";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 
 const Banner = () => {
   const settings = {
@@ -21,18 +20,21 @@ const Banner = () => {
       <Slider {...settings}>
         <div>
           <img
+            alt="banner-image1"
             src="https://i.ibb.co.com/bRv8k53w/woman-hand-picking-book-from-bookshelf-library-university-college-high-school-bookshop-1048944-21899.jpg"
             className="w-full h-[60vh] sm:h-[70vh] md:h-[80vh] object-cover opacity-50"
           />
         </div>
         <div>
           <img
+            alt="banner-image2"
             src="https://i.ibb.co.com/v6D1JhJz/graduation-attire-displayed-college-campus-60438-3682.jpg"
             className="w-full h-[60vh] sm:h-[70vh] md:h-[80vh] object-cover opacity-50"
           />
         </div>
         <div>
           <img
+            alt="banner-image3"
             src="https://i.ibb.co.com/vvXX1XKK/empty-chairs-tables-row-1048944-19298211.jpg"
             className="w-full h-[60vh] sm:h-[70vh] md:h-[80vh] object-cover opacity-50"
           />
