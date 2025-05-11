@@ -62,6 +62,6 @@ Learnify is a modern full-stack MERN (MongoDB, Express, React, Node.js) applicat
 
 ## Screenshots
 
-*Coverage of home page, tutor listing, booking flow, and mobile responsiveness.*
+<!-- *Coverage of home page, tutor listing, booking flow, and mobile responsiveness.*
 
-&#x20;&#x20;
+&#x20;&#x20; -->
