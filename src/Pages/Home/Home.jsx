@@ -4,6 +4,8 @@ import Languages from "./Languages";
 import AboutUs from "./AboutUs";
 import ContactUs from "./ContactUs";
 import Statistics from "./Statistics";
+import HowItWorks from "./HowItWorks";
+import Testomonial from "./Testomonial";
 
 const Home = () => {
   return (
@@ -16,9 +18,16 @@ const Home = () => {
         <Languages />
       </div>
 
+
+
       {/* Statistics Section */}
       <div className="py-16 bg-base-100">
         <Statistics />
+      </div>
+
+      {/* How it works section */}
+          <div className="py-16 bg-base-100">
+          <HowItWorks />
       </div>
 
       {/* About Us Section */}
@@ -26,6 +35,10 @@ const Home = () => {
         <AboutUs />
       </div>
 
+      {/* testomonial section */}
+      <div className="py-16 bg-base-200">
+        <Testomonial />
+      </div>
       {/* Contact Us Section */}
       <div className="py-16 bg-base-100">
         <ContactUs />
