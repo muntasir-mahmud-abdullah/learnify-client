@@ -60,7 +60,7 @@ Learnify is a modern full-stack MERN (MongoDB, Express, React, Node.js) applicat
 
 > No default credentials are required. New users can register via the registration form, or sign in with a Google account.
 
-## Screenshots
+<!-- ## Screenshots -->
 
 <!-- *Coverage of home page, tutor listing, booking flow, and mobile responsiveness.*
 
