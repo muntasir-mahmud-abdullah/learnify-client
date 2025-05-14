@@ -30,7 +30,7 @@ const GoogleSignIn = () => {
         toast.error("Failed to generate token");
       }
     } catch (error) {
-      // console.error("Error during Google Sign-In:", error);
+      console.error("Error during Google Sign-In:", error);
 
       toast.error("Google Sign-In failed. Please try again.");
     } finally {
