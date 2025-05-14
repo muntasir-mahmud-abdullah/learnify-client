@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import UseAuth from "../../Hooks/UseAuth";
-import {toast} from "react-toastify"
 const AddTutorial = () => {
   const { user } = UseAuth(); // Get logged-in user details
   const [tutorial, setTutorial] = useState({
@@ -17,9 +17,7 @@ const AddTutorial = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(
-        `https://learnify-server-blush.vercel.app/user-profile?email=${user.email}`
-      )
+      fetch(`http://localhost:5000/user-profile?email=${user.email}`)
         .then((response) => response.json())
         .then((data) => {
           setName(data.name || "User");
@@ -37,7 +35,7 @@ const AddTutorial = () => {
     e.preventDefault();
     // console.log("Form submitted:", tutorial); // Replace with actual API call
 
-    fetch("https://learnify-server-blush.vercel.app/tutorials", {
+    fetch("http://localhost:5000/tutorials", {
       method: "POST",
       credentials: "include",
       headers: {

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import BestTutorCard from "./BestTutorCard";
+import { useEffect, useState } from "react";
 import UseAuth from "../../Hooks/UseAuth";
+import BestTutorCard from "./BestTutorCard";
 
 const BestTutors = () => {
   const { tutors, setTutors } = UseAuth();

@@ -1,7 +1,6 @@
-import React from "react";
-import { Link, useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
+import { toast } from "react-toastify";
 import UseAuth from "../../Hooks/UseAuth";
-import {toast} from 'react-toastify'
 const TutorDetails = () => {
   const { user } = UseAuth();
   const tutor = useLoaderData();
@@ -35,7 +34,7 @@ const TutorDetails = () => {
       })
       .catch((error) => {
         // console.error("Error booking tutor:", error)
-        toast.error("Error booking tutor")
+        toast.error("Error booking tutor");
       });
   };
 

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import UseAuth from "../../Hooks/UseAuth";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {toast } from 'react-toastify';
+import { toast } from "react-toastify";
+import UseAuth from "../../Hooks/UseAuth";
 const MyTutorials = () => {
   const { user, setTutorials, tutorials } = UseAuth();
   const [loading, setLoading] = useState(true);
@@ -19,8 +19,7 @@ const MyTutorials = () => {
         .catch((error) => {
           // console.error("Error fetching user profile:", error);
           toast.error("Error fetching user profile");
-        }
-          );
+        });
     }
   }, [user]);
 
@@ -45,7 +44,7 @@ const MyTutorials = () => {
       })
       .catch((error) => {
         // console.error(error);
-        toast.error('error setting tutorial')
+        toast.error("error setting tutorial");
         setLoading(false);
       });
   }, [user.email, setTutorials]);

@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import LanguageCard from "./LanguageCard";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import LanguageCard from "./LanguageCard";
 
 const Languages = () => {
   const [languages, setLanguages] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://learnify-server-blush.vercel.app/languages")
+    fetch("http://localhost:5000/languages")
       .then((res) => res.json())
       .then((data) => {
         setLanguages(data);
@@ -15,7 +15,7 @@ const Languages = () => {
       })
       .catch((error) => {
         // console.error("Error fetching languages:", error);
-        toast.error("Error fetching languages")
+        toast.error("Error fetching languages");
         setLoading(false);
       });
   }, []);

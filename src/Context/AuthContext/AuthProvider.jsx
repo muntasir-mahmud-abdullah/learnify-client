@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
-import AuthContext from "./AuthContext";
-import auth from "../../firebase/firebase.init";
+import axios from "axios";
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
@@ -9,7 +7,9 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
-import axios from "axios";
+import { useEffect, useState } from "react";
+import auth from "../../firebase/firebase.init";
+import AuthContext from "./AuthContext";
 const googleProvider = new GoogleAuthProvider();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -39,7 +39,7 @@ const AuthProvider = ({ children }) => {
       if (currentUser?.email) {
         setUser(currentUser);
         const { data } = await axios.post(
-          `https://learnify-server-blush.vercel.app/jwt`,
+          `http://localhost:5000/jwt`,
           {
             email: currentUser?.email,
             name: currentUser?.displayName,
@@ -49,12 +49,9 @@ const AuthProvider = ({ children }) => {
         // console.log(data);
       } else {
         setUser(currentUser);
-        const { data } = await axios.get(
-          `https://learnify-server-blush.vercel.app/logout`,
-          {
-            withCredentials: true,
-          }
-        );
+        const { data } = await axios.get(`http://localhost:5000/logout`, {
+          withCredentials: true,
+        });
       }
       setLoading(false);
       // console.log(currentUser);

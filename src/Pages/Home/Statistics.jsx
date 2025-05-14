@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {toast } from 'react-toastify';
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 const Statistics = () => {
   const [userCount, setUserCount] = useState(0);
   const [tutorsCount, setTutorsCount] = useState(0);
@@ -9,20 +9,20 @@ const Statistics = () => {
 
   useEffect(() => {
     Promise.all([
-      fetch("https://learnify-server-blush.vercel.app/reviews/count")
+      fetch("http://localhost:5000/reviews/count")
         .then((res) => res.json())
         .then((data) => setTotalReviews(data.totalReviews)),
-      fetch("https://learnify-server-blush.vercel.app/users/count")
+      fetch("http://localhost:5000/users/count")
         .then((res) => res.json())
         .then((data) => setUserCount(data.count)),
-      fetch("https://learnify-server-blush.vercel.app/tutors/count")
+      fetch("http://localhost:5000/tutors/count")
         .then((res) => res.json())
         .then((data) => setTutorsCount(data.count)),
     ])
       .then(() => setLoading(false))
       .catch((error) => {
         // console.error("Error fetching statistics:", error);
-        toast.error("Error fetching statistics")
+        toast.error("Error fetching statistics");
         setLoading(false);
       });
   }, []);

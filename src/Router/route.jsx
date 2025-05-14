@@ -1,18 +1,17 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../Layout/MainLayout";
-import Home from "../Pages/Home/Home";
-import Register from "../Pages/Register/Register";
-import SignIn from "../Pages/SignIn/SignIn";
-import LanguageDetails from "../Pages/LanguageDetails/LanguageDetails";
-import TutorDetails from "../Pages/TutorDetails/TutorDetails";
-import PrivateRoute from "./PrivateRoute";
 import AddTutorial from "../Pages/AddTutorial/AddTutorial";
+import ErrorPage from "../Pages/ErrorPage";
+import FindTutors from "../Pages/FindTutors/FindTutors";
+import Home from "../Pages/Home/Home";
+import MyBookedTutors from "../Pages/MyBookedTutors/MyBookedTutors";
 import MyTutorials from "../Pages/MyTutorials/MyTutorials";
 import UpdateTutorials from "../Pages/MyTutorials/UpdateTutorials";
+import Register from "../Pages/Register/Register";
+import SignIn from "../Pages/SignIn/SignIn";
+import TutorDetails from "../Pages/TutorDetails/TutorDetails";
 import BestTutors from "../Pages/Tutors/BestTutors";
-import FindTutors from "../Pages/FindTutors/FindTutors";
-import MyBookedTutors from "../Pages/MyBookedTutors/MyBookedTutors";
-import ErrorPage from "../Pages/ErrorPage";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -28,7 +27,7 @@ const router = createBrowserRouter([
       //   path: "languages/:id",
       //   element: <LanguageDetails></LanguageDetails>,
       //   loader: ({ params }) =>
-      //     fetch(`https://learnify-server-blush.vercel.app/languages/${params.id}`),
+      //     fetch(`http://localhost:5000/languages/${params.id}`),
       // },
       {
         path: "tutorials/:id",
@@ -38,9 +37,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(
-            `https://learnify-server-blush.vercel.app/tutorials/${params.id}`
-          ),
+          fetch(`http://localhost:5000/tutorials/${params.id}`),
       },
       {
         path: "findTutors",
@@ -66,9 +63,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(
-            `https://learnify-server-blush.vercel.app/tutorials/${params.id}`
-          ),
+          fetch(`http://localhost:5000/tutorials/${params.id}`),
       },
       {
         path: "myTutorial",

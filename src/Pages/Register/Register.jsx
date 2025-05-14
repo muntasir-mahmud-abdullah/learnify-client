@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import AuthContext from "../../Context/AuthContext/AuthContext";
 import GoogleSignIn from "../Shared/GoogleSignIn";
-import {toast} from "react-toastify"
 const Register = () => {
   const { createUser } = useContext(AuthContext);
   const [userCount, setUserCount] = useState(0);
@@ -11,14 +11,14 @@ const Register = () => {
 
   // Fetch registered user count
   useEffect(() => {
-    fetch("https://learnify-server-blush.vercel.app/users/count")
+    fetch("http://localhost:5000/users/count")
       .then((res) => res.json())
       .then((data) => {
         setUserCount(data.count);
       })
-      .catch((error) =>{ 
+      .catch((error) => {
         // console.error("Error fetching user count:", error)
-        toast.error("Error fetching user count")
+        toast.error("Error fetching user count");
       });
   }, []);
 
@@ -39,14 +39,11 @@ const Register = () => {
       // console.log("User Created:", result.user);
 
       // Send user details to backend
-      const response = await fetch(
-        "https://learnify-server-blush.vercel.app/register",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, email, photoURL }),
-        }
-      );
+      const response = await fetch("http://localhost:5000/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, photoURL }),
+      });
 
       const data = await response.json();
       if (response.ok) {
@@ -123,7 +120,7 @@ const Register = () => {
               </button>
             </div>
           </form>
-          <GoogleSignIn /> 
+          <GoogleSignIn />
           {/* Error and Success Messages */}
           {error && <div className="text-red-500 text-center">{error}</div>}
           {success && (

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import UseAuth from "../../Hooks/UseAuth";
-import {toast} from "react-toastify"
 const MyBookedTutors = () => {
   const { user } = UseAuth();
   const [bookedTutors, setBookedTutors] = useState([]);
@@ -15,13 +15,10 @@ const MyBookedTutors = () => {
       return;
     }
 
-    fetch(
-      `https://learnify-server-blush.vercel.app/booked-tutors?user_email=${user.email}`,
-      {
-        method: "GET",
-        credentials: "include", // Include cookies for authentication
-      }
-    )
+    fetch(`http://localhost:5000/booked-tutors?user_email=${user.email}`, {
+      method: "GET",
+      credentials: "include", // Include cookies for authentication
+    })
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to fetch booked tutors");
@@ -29,7 +26,7 @@ const MyBookedTutors = () => {
         return res.json();
       })
       .then((data) => {
-        setBookedTutors(data);  
+        setBookedTutors(data);
       })
       .catch((error) => {
         // console.error("Error fetching booked tutors:", error);
@@ -42,15 +39,12 @@ const MyBookedTutors = () => {
 
   // Handle Review Increment
   const handleReview = (id) => {
-    fetch(
-      `https://learnify-server-blush.vercel.app/booked-tutors/${id}/review`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
+    fetch(`http://localhost:5000/booked-tutors/${id}/review`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to increment review count");

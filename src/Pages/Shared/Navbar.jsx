@@ -1,8 +1,8 @@
-import React, { useContext, useState, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import AuthContext from "../../Context/AuthContext/AuthContext";
+import { toast } from "react-toastify";
 import { Tooltip as ReactTooltip } from "react-tooltip";
-import {toast } from "react-toastify"
+import AuthContext from "../../Context/AuthContext/AuthContext";
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
@@ -13,9 +13,10 @@ const Navbar = () => {
   useEffect(() => {
     if (user?.email) {
       fetch(
-        `https://learnify-server-blush.vercel.app/user-profile?email=${user.email}`,
+        `https://learnify-server-blush.vercel.app/user-profile?email=${encodeURIComponent(
+          user.email
+        )}`,
         {
-          method: "GET",
           credentials: "include",
         }
       )
@@ -25,12 +26,12 @@ const Navbar = () => {
           setProfileImage(data.photoURL || profileImage);
           setName(data.name || "User");
         })
-        .catch((error) =>{
+        .catch((error) => {
           // console.error("Error fetching user profile:", error);
-          toast.error ("Error fetching user profile");
-        } );
+          toast.error("Error fetching user profile");
+        });
     }
-  }, [user]);
+  }, [user?.email]);
 
   const handleSignOut = async () => {
     try {
@@ -39,7 +40,7 @@ const Navbar = () => {
       toast("You have been signed out successfully.");
     } catch (error) {
       // console.error("Error signing out:", error);
-      toast.error("Error signing out")
+      toast.error("Error signing out");
       toast("Sign-out failed. Please try again.");
     }
   };

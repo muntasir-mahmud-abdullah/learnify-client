@@ -11,24 +11,23 @@ const GoogleSignIn = () => {
       setLoading(true);
       const result = await signInWithGoogle();
       const { email } = result.user;
-
+      console.log(result.user);
       // Generate token
-      const response = await axios.post(
-        "https://learnify-server-blush.vercel.app/signIn",
-        {
-          email,
-        }
-      );
+axios.post(
+  "https://learnify-server-blush.vercel.app/jwt",
+  { email:email },
+  { withCredentials: true }
+)
 
-      if (response.status === 200) {
-        // console.log("Token generated:", response.data.token);
-        toast("Sign-in successful!");
-        // You can store the token securely here if needed
-      } else {
-        // console.error("Failed to generate token");
-        // alert("Something went wrong, please try again.");
-        toast.error("Failed to generate token");
-      }
+      // if (response.status === 200) {
+      //   // console.log("Token generated:", response.data.token);
+      //   toast("Sign-in successful!");
+      //   // You can store the token securely here if needed
+      // } else {
+      //   // console.error("Failed to generate token");
+      //   // alert("Something went wrong, please try again.");
+      //   toast.error("Failed to generate token");
+      // }
     } catch (error) {
       console.error("Error during Google Sign-In:", error);
 

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import {toast} from "react-toastify"
+import { toast } from "react-toastify";
 const FindTutors = () => {
   const { category } = useParams(); // Get the category from the URL
   const [tutors, setTutors] = useState([]);
@@ -8,9 +8,7 @@ const FindTutors = () => {
 
   // Fetch tutors based on the category
   useEffect(() => {
-    fetch(
-      `https://learnify-server-blush.vercel.app/tutorials/category/${category}`
-    )
+    fetch(`http://localhost:5000/tutorials/category/${category}`)
       .then((res) => res.json())
       .then((data) => {
         setTutors(data);
