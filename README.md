@@ -4,23 +4,23 @@ Learnify is a modern full-stack MERN (MongoDB, Express, React, Node.js) applicat
 
 ## Features
 
-* **User Authentication**: Email/password and Google sign-in with JWT-based protection on private routes.
-* **Tutor Listings**: Browse and search tutors by language category or keyword.
-* **Tutor Details & Booking**: View detailed tutor profiles and securely book sessions.
-* **My Tutorials**: Tutors can add, update, and delete their own tutorial listings.
-* **My Booked Tutors**: Learners can view and manage their booked tutor sessions.
-* **Review System**: Increment review counts to provide social proof for tutors.
-* **Dark/Light Theme**: Toggle between dark and light modes for optimal user experience.
-* **Responsive Design**: Fully responsive layout for mobile, tablet, and desktop.
-* **Error & Loading Pages**: Custom error and loading states to handle edge cases.
+- **User Authentication**: Email/password and Google sign-in with JWT-based protection on private routes.
+- **Tutor Listings**: Browse and search tutors by language category or keyword.
+- **Tutor Details & Booking**: View detailed tutor profiles and securely book sessions.
+- **My Tutorials**: Tutors can add, update, and delete their own tutorial listings.
+- **My Booked Tutors**: Learners can view and manage their booked tutor sessions.
+- **Review System**: Increment review counts to provide social proof for tutors.
+- **Dark/Light Theme**: Toggle between dark and light modes for optimal user experience.
+- **Responsive Design**: Fully responsive layout for mobile, tablet, and desktop.
+- **Error & Loading Pages**: Custom error and loading states to handle edge cases.
 
 ## Tech Stack
 
-* **Frontend**: React, React Router, Tailwind CSS, DaisyUI
-* **Backend**: Node.js, Express.js, MongoDB (Atlas), JWT Authentication
-* **Authentication**: Firebase Authentication (Email/Password, Google)
-* **Styling & UI**: Tailwind CSS, DaisyUI, Framer Motion (optional animations)
-* **Deployment**: Vercel (frontend), Heroku or DigitalOcean (backend)
+- **Frontend**: React, React Router, Tailwind CSS, DaisyUI
+- **Backend**: Node.js, Express.js, MongoDB (Atlas), JWT Authentication
+- **Authentication**: Firebase Authentication (Email/Password, Google)
+- **Styling & UI**: Tailwind CSS, DaisyUI, Framer Motion (optional animations)
+- **Deployment**: Vercel (frontend), Heroku or DigitalOcean (backend)
 
 ## Setup Instructions
 
@@ -30,6 +30,7 @@ Learnify is a modern full-stack MERN (MongoDB, Express, React, Node.js) applicat
    git clone https://github.com/muntasir-mahmud-abdullah/learnify-client.git
    git clone https://github.com/muntasir-mahmud-abdullah/learnify-server.git
    ```
+
 2. **Server Setup**
 
    ```bash
@@ -38,6 +39,7 @@ Learnify is a modern full-stack MERN (MongoDB, Express, React, Node.js) applicat
    cp .env.example .env  # configure DB_USER, DB_PASS, SECRET_KEY, PORT
    npm run dev
    ```
+
 3. **Client Setup**
 
    ```bash
@@ -46,14 +48,15 @@ Learnify is a modern full-stack MERN (MongoDB, Express, React, Node.js) applicat
    cp .env.example .env  # configure REACT_APP_FIREBASE_API_KEY, etc.
    npm start
    ```
+
 4. **Access the Application**
 
-   * Frontend: `http://localhost:3000`
-   * Backend API: `http://localhost:5000`
+   - Frontend: `http://localhost:3000`
+   - Backend API: `https://learnify-server-blush.vercel.app`
 
 ## Live Link
 
-* **Frontend**: [https://learnify-5acd7.web.app](https://learnify-5acd7.web.app/)
+- **Frontend**: [https://learnify-5acd7.web.app](https://learnify-5acd7.web.app/)
 <!-- * **Backend**: [https://learnify-server.herokuapp.com](https://learnify-server.herokuapp.com) -->
 
 ## Default Credentials

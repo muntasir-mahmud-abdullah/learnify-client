@@ -13,11 +13,11 @@ const GoogleSignIn = () => {
       const { email } = result.user;
       console.log(result.user);
       // Generate token
-axios.post(
-  "https://learnify-server-blush.vercel.app/jwt",
-  { email:email },
-  { withCredentials: true }
-)
+      axios.post(
+        "https://learnify-server-blush.vercel.app/jwt",
+        { email: email },
+        { withCredentials: true }
+      );
 
       // if (response.status === 200) {
       //   // console.log("Token generated:", response.data.token);
