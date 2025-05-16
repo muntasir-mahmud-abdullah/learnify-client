@@ -60,18 +60,16 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="navbar mx-auto sm:px-24 bg-base-100 sticky top-0 z-50">
-      <div className="navbar-start flex-1">
+    <div className=" flex justify-between py-4 mx-auto sm:px-24 bg-base-100 sticky top-0 z-50">
+      <div className="flex gap-0 md:gap-4">
         <NavLink to="/" className="text-3xl pl-2 sm:pl-10 font-bold">
           Learnify
         </NavLink>
-      </div>
-
-      {/* Hamburger + Mobile Menu */}
-      <div className="navbar-center lg:hidden">
+              {/* Hamburger + Mobile Menu */}
+      <div className="lg:hidden flex justify-start">
         <button
           onClick={() => setMenuOpen((o) => !o)}
-          className="btn btn-ghost px-2 mr-2 sm:mr-0 sm:px-4"
+          className="btn btn-ghost px-2 ml-4 sm:ml-0 sm:px-4"
           aria-label="Toggle menu"
         >
           <svg
@@ -99,9 +97,12 @@ const Navbar = () => {
           </svg>
         </button>
       </div>
+      </div>
+
+
 
       {/* Desktop Links */}
-      <div className="navbar-center hidden lg:flex">
+      <div className="hidden lg:flex ">
         <ul className="menu menu-horizontal px-1 space-x-4">
           {links.map(({ to, label }) => (
             <li key={to}>
@@ -112,7 +113,7 @@ const Navbar = () => {
       </div>
 
       {/* User Actions */}
-      <div className="navbar-end mr-2 sm:mr-0 flex items-center gap-4">
+      <div className="mr-2 sm:mr-0 flex items-center gap-4">
         <label className="swap swap-rotate" aria-label="Toggle Theme">
           <input
             type="checkbox"
@@ -137,11 +138,11 @@ const Navbar = () => {
 
         {user ? (
           <>
-            <div className="w-10 rounded-full hidden sm:visible">
+            <div className="w-10 rounded-full">
               <img
                 alt="User Profile"
                 src={profileImage}
-                className="w-10 h-10 rounded-full"
+                className="w-6 h-6 sm:w-10 sm:h-10  rounded-full"
                 data-tooltip-id="my-tooltip"
                 data-tooltip-content={name}
               />
