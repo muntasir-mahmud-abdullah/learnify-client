@@ -50,8 +50,8 @@ const Banner = () => {
           Discover and learn from top tutors around the world.
         </p>
         <button>
-          <Link>
-            <div className="btn btn-primary mt-10 text-xl font-semibold">Start Learning</div>
+          <Link to="/findTutors">
+            <div className="btn btn-primary mt-10 text-lg sm:text-xl font-semibold">Start Learning</div>
           </Link>
         </button>
       </div>

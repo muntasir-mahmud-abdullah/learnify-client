@@ -44,24 +44,24 @@ const Statistics = () => {
         // Stats Cards Container
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {/* Tutors Count Card */}
-          <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center justify-center text-center border border-gray-200">
-            <p className="text-lg font-semibold text-gray-600">Total Tutors</p>
+          <div className="bg-white dark:bg-gray-300 shadow-lg rounded-lg p-6 flex flex-col items-center justify-center text-center border border-gray-200">
+            <p className="text-lg font-semibold text-gray-600 dark:text-[#1d232a]">Total Tutors</p>
             <p className="text-4xl font-bold text-primary mt-2">
               {tutorsCount}
             </p>
           </div>
 
           {/* Reviews Count Card */}
-          <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center justify-center text-center border border-gray-200">
-            <p className="text-lg font-semibold text-gray-600">Total Reviews</p>
+          <div className="bg-white dark:bg-gray-300 shadow-lg rounded-lg p-6 flex flex-col items-center justify-center text-center border border-gray-200">
+            <p className="text-lg font-semibold text-gray-600 dark:text-[#1d232a]">Total Reviews</p>
             <p className="text-4xl font-bold text-primary mt-2">
               {totalReviews}
             </p>
           </div>
 
           {/* Languages Count Card */}
-          <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center justify-center text-center border border-gray-200">
-            <p className="text-lg font-semibold text-gray-600">
+          <div className="bg-white dark:bg-gray-300 shadow-lg rounded-lg p-6 flex flex-col items-center justify-center text-center border border-gray-200">
+            <p className="text-lg font-semibold text-gray-600 dark:text-[#1d232a]">
               Total Languages
             </p>
             <p className="text-4xl font-bold text-primary mt-2">
@@ -70,8 +70,8 @@ const Statistics = () => {
           </div>
 
           {/* Users Count Card */}
-          <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center justify-center text-center border border-gray-200">
-            <p className="text-lg font-semibold text-gray-600">
+          <div className="bg-white dark:bg-gray-300 shadow-lg rounded-lg p-6 flex flex-col items-center justify-center text-center border border-gray-200">
+            <p className="text-lg font-semibold text-gray-600 dark:text-[#1d232a]">
               Total Registered Users
             </p>
             <p className="text-4xl font-bold text-primary mt-2">{userCount}</p>

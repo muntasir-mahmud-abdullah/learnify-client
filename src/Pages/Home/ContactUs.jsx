@@ -1,7 +1,7 @@
 const ContactUs = () => {
   return (
     <div className="flex justify-center items-center py-16 bg-base-200">
-      <div className="max-w-3xl w-full p-8 rounded-lg shadow-lg bg-white">
+      <div className="max-w-3xl w-full p-8 rounded-lg shadow-lg bg-white dark:bg-gray-300">
         <h2 className="text-4xl font-bold text-center mb-6 text-primary">Contact Us</h2>
         <p className="text-lg text-center mb-8 text-gray-700">
           Have any questions or need assistance? Reach out to us using the
