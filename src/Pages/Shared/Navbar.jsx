@@ -137,7 +137,7 @@ const Navbar = () => {
 
         {user ? (
           <>
-            <div className="w-10 rounded-full">
+            <div className="w-10 rounded-full hidden sm:visible">
               <img
                 alt="User Profile"
                 src={profileImage}
