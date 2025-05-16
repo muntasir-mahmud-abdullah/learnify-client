@@ -1,7 +1,7 @@
+import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
-
 const Banner = () => {
   const settings = {
     dots: true, // Show navigation dots
@@ -49,6 +49,11 @@ const Banner = () => {
         <p className="text-xl sm:text-2xl md:text-3xl">
           Discover and learn from top tutors around the world.
         </p>
+        <button>
+          <Link>
+            <div className="btn btn-primary mt-10 text-xl font-semibold">Start Learning</div>
+          </Link>
+        </button>
       </div>
     </div>
   );
