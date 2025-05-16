@@ -76,10 +76,10 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar mx-auto px-24 bg-base-100 sticky top-0 z-50">
-      <div className="navbar-start">
+    <div className="navbar mx-auto sm:px-24 bg-base-100 sticky top-0 z-50">
+      <div className="navbar-start ">
         <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden px-0 sm:px-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -102,7 +102,7 @@ const Navbar = () => {
             {links}
           </ul>
         </div>
-        <a className="text-3xl">Learnify</a>
+        <a className="text-3xl pl-4 sm:pl-10">Learnify</a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
