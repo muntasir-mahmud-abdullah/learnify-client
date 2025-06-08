@@ -2,3 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+.bbotom::after {
+  content: "";
+  width: 0%;
+  height: 0.15em;
+  background: #53af57;
+  display: block;
+  transition: 0.5s;
+  margin: auto;
+}
+.bbotom:hover::after {
+  width: 100%;
+}

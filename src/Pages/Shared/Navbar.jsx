@@ -1,19 +1,23 @@
-import { useContext, useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { NavLink, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import AuthContext from "../../Context/AuthContext/AuthContext";
+// import { MenuIcon, XIcon, SunIcon, MoonIcon } from "@heroicons/react/outline";
+import { Bars3Icon,XMarkIcon, SunIcon, MoonIcon } from "@heroicons/react/24/outline";
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") || "light"
+  );
+  const [menuOpen, setMenuOpen] = useState(false);
   const [profileImage, setProfileImage] = useState(
     "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
   );
   const [name, setName] = useState("User");
-  const [menuOpen, setMenuOpen] = useState(false);
 
-  // Fetch user profile
+  // Fetch user profile info
   useEffect(() => {
     if (user?.email) {
       fetch(
@@ -27,29 +31,28 @@ const Navbar = () => {
           setProfileImage(data.photoURL || profileImage);
           setName(data.name || "User");
         })
-        .catch(() => {
-          toast.error("Error fetching user profile");
-        });
+        .catch(() => toast.error("Error fetching profile"));
     }
   }, [user?.email]);
 
+  // Theme toggle handler
+  const toggleTheme = () => {
+    const next = theme === "light" ? "dark" : "light";
+    setTheme(next);
+    document.documentElement.setAttribute("data-theme", next);
+    document.documentElement.classList.toggle("dark", next === "dark");
+    localStorage.setItem("theme", next);
+  };
+
+  // Sign out handler
   const handleSignOut = async () => {
     try {
       await signOutUser();
-      toast("You have been signed out successfully.");
+      toast.success("Signed out");
     } catch {
-      toast.error("Sign-out failed. Please try again.");
+      toast.error("Sign-out failed");
     }
   };
-
-  const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-  };
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-  }, [theme]);
 
   const links = [
     { to: "/", label: "Home" },
@@ -60,127 +63,153 @@ const Navbar = () => {
   ];
 
   return (
-    <div className=" flex justify-between py-4 mx-auto sm:px-24 bg-base-100 sticky top-0 z-50">
-      <div className="flex gap-0 md:gap-4">
-        <NavLink to="/" className="text-3xl pl-2 sm:pl-10 font-bold">
+    <nav className="bg-base-100 shadow-md sticky top-0 z-50">
+      <div className="max-w-7xl sm:mx-auto flex items-center justify-between h-16 px-4">
+        {/* Logo */}
+        <Link to="/" className="text-2xl font-bold text-primary">
           Learnify
-        </NavLink>
-              {/* Hamburger + Mobile Menu */}
-      <div className="lg:hidden flex justify-start">
-        <button
-          onClick={() => setMenuOpen((o) => !o)}
-          className="btn btn-ghost px-2 ml-4 sm:ml-0 sm:px-4"
-          aria-label="Toggle menu"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            {menuOpen ? (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            ) : (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            )}
-          </svg>
-        </button>
-      </div>
-      </div>
+        </Link>
 
-
-
-      {/* Desktop Links */}
-      <div className="hidden lg:flex ">
-        <ul className="menu menu-horizontal px-1 space-x-4">
+        {/* Desktop Links */}
+        <ul className="hidden lg:flex space-x-6">
           {links.map(({ to, label }) => (
-            <li key={to}>
-              <NavLink to={to}>{label}</NavLink>
-            </li>
+            <NavLink
+              key={to}
+              to={to}
+              className={({ isActive }) =>
+                `relative px-3 py-2 text-base font-medium bbotom ${
+                   isActive
+                     ? "after:w-full"
+                     : "text-gray-600"
+                 }`
+              }
+            >
+              {label}
+            </NavLink>
           ))}
         </ul>
+
+        {/* Right Actions */}
+        <div className="flex items-center space-x-2 sm:space-x-4">
+          {/* Theme Toggle */}
+<button
+  onClick={toggleTheme}
+  className="p-2 ml:2 sm:ml-auto rounded-full hover:bg-base-200 focus:outline-none focus:ring-2 focus:ring-primary"
+  aria-label="Toggle theme"
+>
+  {theme === "light" ? (
+    <MoonIcon className="w-6 h-6 text-gray-700" />
+  ) : (
+    <SunIcon className="w-6 h-6 text-[#f44336]" />
+  )}
+</button>
+
+          {user ? (
+            <>
+              {/* Profile Dropdown */}
+              <div className="dropdown dropdown-end">
+                <label
+                  tabIndex={0}
+                  className="btn btn-ghost btn-circle avatar focus:outline-none"
+                >
+                  <div className="w-10 rounded-full">
+                    <img
+                      src={profileImage}
+                      alt={name}
+                      data-tooltip-id="profile-tooltip"
+                      data-tooltip-content={name}
+                    />
+                    <ReactTooltip id="profile-tooltip" />
+                  </div>
+                </label>
+                <ul
+                  tabIndex={0}
+                  className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+                >
+                  <li>
+                    <span className="block px-4 py-2 text-sm">{name}</span>
+                  </li>
+                  <li>
+                    <button
+                      onClick={handleSignOut}
+                      className="w-full text-left px-4 py-2 hover:bg-base-200"
+                    >
+                      Sign Out
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </>
+          ) : (
+            <>
+              <NavLink
+                to="/register"
+                className="text-gray-700 hover:text-primary transition-colors"
+              >
+                Register
+              </NavLink>
+              <NavLink
+                to="/signin"
+                className="btn btn-primary btn-sm flex items-center"
+                onClick={() => setMenuOpen(false)}
+              >
+                Sign In
+              </NavLink>
+            </>
+          )}
+
+          {/* Mobile Menu Button */}
+<button
+  onClick={() => setMenuOpen(o => !o)}
+  className="lg:hidden p-2 rounded-md hover:bg-base-200 focus:outline-none focus:ring-2 focus:ring-primary"
+  aria-label="Toggle menu"
+>
+  {menuOpen ? (
+    <XMarkIcon className="w-6 h-6 text-gray-700" />
+  ) : (
+    <Bars3Icon className="w-6 h-6 text-gray-700" />
+  )}
+</button>
+        </div>
       </div>
 
-      {/* User Actions */}
-      <div className="mr-2 sm:mr-0 flex items-center gap-4">
-        <label className="swap swap-rotate" aria-label="Toggle Theme">
-          <input
-            type="checkbox"
-            onChange={toggleTheme}
-            checked={theme === "dark"}
-          />
-          <svg
-            className="swap-on fill-current w-8 h-8"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-          >
-            <path d="M5.64 17.36A9 9 0 0012 21a9 9 0 100-18 9 9 0 00-6.36 15.36z" />
-          </svg>
-          <svg
-            className="swap-off fill-current w-8 h-8"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-          >
-            <path d="M12 2a1 1 0 011 1v2a1 1 0 01-2 0V3a1 1 0 011-1zm5.66 3.34a1 1 0 01.71 1.71l-1.41 1.41a1 1 0 01-1.41-1.41l1.41-1.41a1 1 0 01.7-.3zM21 11a1 1 0 011 1v2a1 1 0 01-2 0v-2a1 1 0 011-1zM17.66 17.66a1 1 0 01-1.41 0l-1.41-1.41a1 1 0 011.41-1.41l1.41 1.41a1 1 0 010 1.41zM12 18a1 1 0 011 1v2a1 1 0 01-2 0v-2a1 1 0 011-1zM6.34 17.66a1 1 0 010-1.41l1.41-1.41a1 1 0 011.41 1.41l-1.41 1.41a1 1 0 01-1.41 0zM4 13H3a1 1 0 010-2h1a1 1 0 010 2zm1.34-5.66a1 1 0 01-.3-.7 1 1 0 01.3-.71L6.45 5.23a1 1 0 011.41 1.41L6.45 8.05a1 1 0 01-1.41 0z" />
-          </svg>
-        </label>
-
-        {user ? (
-          <>
-            <div className="w-10 rounded-full">
-              <img
-                alt="User Profile"
-                src={profileImage}
-                className="w-6 h-6 sm:w-10 sm:h-10  rounded-full"
-                data-tooltip-id="my-tooltip"
-                data-tooltip-content={name}
-              />
-              <ReactTooltip id="my-tooltip" />
-            </div>
-            <button onClick={handleSignOut} className="btn">
+      {/* Mobile Drawer */}
+      <div
+        className={`lg:hidden fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity ${
+          menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => setMenuOpen(false)}
+      />
+      <aside
+        className={`lg:hidden fixed top-0 right-0 w-64 h-full bg-base-100 shadow-lg transform transition-transform z-50 ${
+          menuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <ul className="flex flex-col mt-16">
+          {links.map(({ to, label }) => (
+            <NavLink
+              key={to}
+              to={to}
+              onClick={() => setMenuOpen(false)}
+              className="px-4 py-3 text-base hover:bg-base-200"
+            >
+              {label}
+            </NavLink>
+          ))}
+          {user && (
+            <button
+              onClick={() => {
+                handleSignOut();
+                setMenuOpen(false);
+              }}
+              className="mt-4 px-4 py-3 text-base text-left hover:bg-base-200"
+            >
               Sign Out
             </button>
-          </>
-        ) : (
-          <>
-            <Link to="/register">Register</Link>
-            <Link to="/signin">
-              <button className="btn">Sign In</button>
-            </Link>
-          </>
-        )}
-      </div>
-
-      {/* Mobile Menu Overlay */}
-      {menuOpen && (
-        <div className="lg:hidden absolute top-full left-0 w-full bg-base-100 shadow-md">
-          <ul className="menu menu-vertical p-4 space-y-2">
-            {links.map(({ to, label }) => (
-              <li key={to}>
-                <NavLink
-                  to={to}
-                  onClick={() => setMenuOpen(false)}
-                  className="block"
-                >
-                  {label}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </div>
+          )}
+        </ul>
+      </aside>
+    </nav>
   );
 };
 
