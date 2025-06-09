@@ -36,10 +36,9 @@ const Statistics = () => {
 
       {/* Loading Spinner */}
       {loading ? (
-        <div className="flex justify-center items-center space-x-2">
-          <span className="loading loading-spinner text-primary"></span>
-          <p>Loading...</p>
-        </div>
+          <div className="flex justify-center">
+            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-primary"></div>
+          </div>
       ) : (
         // Stats Cards Container
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">

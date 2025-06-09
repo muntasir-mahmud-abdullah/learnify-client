@@ -3,41 +3,50 @@ import { Link } from "react-router-dom";
 
 const LanguageCard = ({ language }) => {
   const { _id, name, logo } = language;
-  // console.log(name);
-  
+
   return (
-    <div className="card bg-base-100 shadow-md hover:shadow-lg hover:scale-105 transition-all cursor-pointer">
-      <div className="card-body flex items-center justify-between p-6">
-        {/* Language Logo */}
-        <div className="flex items-center space-x-4">
-          <img
-            src={logo}
-            alt={name}
-            className="h-14 w-14 object-contain rounded-lg border border-gray-200 p-2"
-          />
-          <h3 className="text-xl font-semibold text-primary">{name}</h3>
+    <Link
+      to={`/find-tutors/${name.toLowerCase()}`}
+      className="block cursor-default transform transition-transform duration-300 hover:scale-105"
+    >
+      <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-md dark:shadow-xl overflow-hidden">
+        <div className="flex items-center p-6 space-x-6">
+          {/* Logo */}
+          <div className="flex-shrink-0">
+            <img
+              src={logo}
+              alt={name}
+              className="h-16 w-16 rounded-lg bg-gray-100 dark:bg-gray-700 p-2 object-contain"
+            />
+          </div>
+
+          {/* Title */}
+          <h3 className="flex-1 text-2xl font-semibold text-gray-900 dark:text-gray-100">
+            {name}
+          </h3>
+
+          {/* Arrow */}
+          <div>
+            <button className="p-3 bg-primary text-white rounded-full shadow hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M13.5 4.5l6 6m0 0l-6 6m6-6H3"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
-        {/* Right Arrow Icon */}
-        <Link to={`/find-tutors/${name.toLowerCase()}`}>
-          <button className="btn btn-circle btn-sm btn-primary">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="2"
-              stroke="currentColor"
-              className="w-5 h-5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M13.5 4.5l6 6m0 0l-6 6m6-6H3"
-              />
-            </svg>
-          </button>
-        </Link>
       </div>
-    </div>
+    </Link>
   );
 };
 

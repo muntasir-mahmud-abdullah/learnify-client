@@ -14,7 +14,7 @@ const Home = () => {
       <Banner />
 
       {/* Languages Section */}
-      <div className="py-16 bg-base-200">
+      <div className="py-8 bg-base-100">
         <Languages />
       </div>
 

@@ -159,13 +159,13 @@ const Navbar = () => {
             <>
               <NavLink
                 to="/register"
-                className="text-gray-500 dark:text-gray-300 hover:text-primary transition-colors font-semibold"
+                className="text-gray-700 dark:text-gray-300 hover:text-primary transition-colors font-semibold"
               >
                 Register
               </NavLink>
               <NavLink
                 to="/signin"
-                className="btn  btn-success btn-sm sm:btn-md text-sm sm:text-base flex items-center"
+                className="px-3 py-2 bg-primary hover:bg-primary-dark text-white text-sm font-semibold rounded-full shadow-sm transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-primary/50 flex items-center"
                 onClick={() => setMenuOpen(false)}
               >
                 Sign In
