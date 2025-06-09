@@ -1,83 +1,123 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import {
+  UserGroupIcon,
+  AcademicCapIcon,
+  ChatBubbleBottomCenterTextIcon,
+  GlobeAltIcon,
+} from "@heroicons/react/24/outline";
+
+const BASE_URL = "https://learnify-server-blush.vercel.app";
+
+const statsConfig = [
+  {
+    label: "Total Tutors",
+    icon: AcademicCapIcon,
+    key: "tutorsCount",
+    endpoint: "/tutors/count",
+    bgColor: "bg-indigo-500",
+  },
+  {
+    label: "Total Reviews",
+    icon: ChatBubbleBottomCenterTextIcon,
+    key: "totalReviews",
+    endpoint: "/reviews/count",
+    bgColor: "bg-green-500",
+  },
+  {
+    label: "Total Languages",
+    icon: GlobeAltIcon,
+    key: "languageCount",
+    endpoint: null,          // static
+    bgColor: "bg-yellow-500",
+  },
+  {
+    label: "Registered Users",
+    icon: UserGroupIcon,
+    key: "userCount",
+    endpoint: "/users/count",
+    bgColor: "bg-pink-500",
+  },
+];
+
 const Statistics = () => {
-  const [userCount, setUserCount] = useState(0);
-  const [tutorsCount, setTutorsCount] = useState(0);
-  const [totalReviews, setTotalReviews] = useState(0);
-  const languageCount = 9; // Hardcoded language count for now
+  const [stats, setStats] = useState({
+    tutorsCount: 0,
+    totalReviews: 0,
+    languageCount: 9,
+    userCount: 0,
+  });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Promise.all([
-      fetch("https://learnify-server-blush.vercel.app/reviews/count")
-        .then((res) => res.json())
-        .then((data) => setTotalReviews(data.totalReviews)),
-      fetch("https://learnify-server-blush.vercel.app/users/count")
-        .then((res) => res.json())
-        .then((data) => setUserCount(data.count)),
-      fetch("https://learnify-server-blush.vercel.app/tutors/count")
-        .then((res) => res.json())
-        .then((data) => setTutorsCount(data.count)),
-    ])
-      .then(() => setLoading(false))
-      .catch((error) => {
-        // console.error("Error fetching statistics:", error);
-        toast.error("Error fetching statistics");
+    async function fetchStats() {
+      try {
+        const results = await Promise.all(
+          statsConfig.map(async (cfg) => {
+            if (!cfg.endpoint) {
+              return { key: cfg.key, value: stats[cfg.key] };
+            }
+            const res = await fetch(BASE_URL + cfg.endpoint);
+            if (!res.ok) {
+              console.error(`Failed ${cfg.endpoint}:`, res.status, await res.text());
+              throw new Error(`Error ${res.status}`);
+            }
+            const json = await res.json();
+            const value = json.count ?? json.totalReviews;
+            return { key: cfg.key, value };
+          })
+        );
+        setStats((prev) => {
+          const updated = { ...prev };
+          results.forEach(({ key, value }) => (updated[key] = value));
+          return updated;
+        });
+      } catch (err) {
+        console.error("Error fetching statistics:", err);
+        toast.error("Error fetching statistics. Check console.");
+      } finally {
         setLoading(false);
-      });
+      }
+    }
+    fetchStats();
   }, []);
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* Title Section */}
-      <h2 className="text-3xl font-bold text-center text-primary mb-8">
-        Statistics Overview
-      </h2>
+    <section className="py-16 bg-gray-50 dark:bg-gray-900 transition-colors">
+      <div className="max-w-7xl mx-auto px-4 text-center">
+        <h2 className="text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-4">
+          Platform Statistics
+        </h2>
+        <p className="text-lg text-gray-600 dark:text-gray-300 mb-12">
+          Track our growth and community engagement at a glance.
+        </p>
 
-      {/* Loading Spinner */}
-      {loading ? (
+        {loading ? (
           <div className="flex justify-center">
             <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-primary"></div>
           </div>
-      ) : (
-        // Stats Cards Container
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {/* Tutors Count Card */}
-          <div className="bg-white dark:bg-gray-300 shadow-lg rounded-lg p-6 flex flex-col items-center justify-center text-center border border-gray-200">
-            <p className="text-lg font-semibold text-gray-600 dark:text-[#1d232a]">Total Tutors</p>
-            <p className="text-4xl font-bold text-primary mt-2">
-              {tutorsCount}
-            </p>
+        ) : (
+          <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
+            {statsConfig.map(({ label, icon: Icon, key, bgColor }) => (
+              <div
+                key={key}
+                className="flex flex-col items-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-shadow"
+              >
+                <div className={`${bgColor} p-3 rounded-full mb-4 text-white`}>
+                  <Icon className="w-8 h-8" />
+                </div>
+                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                  {label}
+                </p>
+                <p className="mt-2 text-3xl font-bold text-gray-900 dark:text-gray-100">
+                  {stats[key]}
+                </p>
+              </div>
+            ))}
           </div>
-
-          {/* Reviews Count Card */}
-          <div className="bg-white dark:bg-gray-300 shadow-lg rounded-lg p-6 flex flex-col items-center justify-center text-center border border-gray-200">
-            <p className="text-lg font-semibold text-gray-600 dark:text-[#1d232a]">Total Reviews</p>
-            <p className="text-4xl font-bold text-primary mt-2">
-              {totalReviews}
-            </p>
-          </div>
-
-          {/* Languages Count Card */}
-          <div className="bg-white dark:bg-gray-300 shadow-lg rounded-lg p-6 flex flex-col items-center justify-center text-center border border-gray-200">
-            <p className="text-lg font-semibold text-gray-600 dark:text-[#1d232a]">
-              Total Languages
-            </p>
-            <p className="text-4xl font-bold text-primary mt-2">
-              {languageCount}
-            </p>
-          </div>
-
-          {/* Users Count Card */}
-          <div className="bg-white dark:bg-gray-300 shadow-lg rounded-lg p-6 flex flex-col items-center justify-center text-center border border-gray-200">
-            <p className="text-lg font-semibold text-gray-600 dark:text-[#1d232a]">
-              Total Registered Users
-            </p>
-            <p className="text-4xl font-bold text-primary mt-2">{userCount}</p>
-          </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </section>
   );
 };
 

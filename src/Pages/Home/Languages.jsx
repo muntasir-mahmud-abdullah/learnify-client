@@ -39,7 +39,8 @@ const Languages = () => {
           </div>
         ) : (
           /* Grid of Language Cards */
-          <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <div className="grid gap-6 
+                grid-cols-[repeat(auto-fill,minmax(280px,1fr))]">
             {languages.map((language) => (
               <LanguageCard
                 key={language._id}

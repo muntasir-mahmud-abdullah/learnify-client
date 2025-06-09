@@ -7,7 +7,7 @@ const LanguageCard = ({ language }) => {
   return (
     <Link
       to={`/find-tutors/${name.toLowerCase()}`}
-      className="block cursor-default transform transition-transform duration-300 hover:scale-105"
+      className="block cursor-default transform transition-transform duration-300 hover:scale-105 w-full max-w-xl mx-auto"
     >
       <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-md dark:shadow-xl overflow-hidden">
         <div className="flex items-center p-6 space-x-6">
@@ -21,7 +21,7 @@ const LanguageCard = ({ language }) => {
           </div>
 
           {/* Title */}
-          <h3 className="flex-1 text-2xl font-semibold text-gray-900 dark:text-gray-100">
+          <h3 className="flex-1 truncate min-w-0 text-2xl font-semibold text-gray-900 dark:text-gray-100">
             {name}
           </h3>
 

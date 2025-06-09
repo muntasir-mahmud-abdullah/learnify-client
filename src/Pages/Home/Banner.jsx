@@ -19,7 +19,7 @@ const Banner = () => {
       </div>
     ),
     customPaging: i => (
-      <button className="w-3 h-3 rounded-full bg-white/50 hover:bg-white dark:hover:bg-primary"></button>
+      <button className="w-3 h-3 rounded-full bg-white/50 dark:bg-gray-700 hover:bg-white dark:hover:bg-gray-700"></button>
     ),
   };
 
