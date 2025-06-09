@@ -6,6 +6,7 @@ const BestTutors = () => {
   const { tutors, setTutors } = UseAuth();
   const [filteredTutors, setFilteredTutors] = useState([]); // Filtered tutors
   const [searchQuery, setSearchQuery] = useState(""); // Search query
+  const [loading, setLoading] = useState(true);
 
   // Fetch all tutors
   useEffect(() => {
@@ -13,6 +14,7 @@ const BestTutors = () => {
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);
+        setLoading(false);
         setTutors(data);
         setFilteredTutors(data); // Initialize filtered tutors
       });
@@ -44,11 +46,17 @@ const BestTutors = () => {
       </div>
 
       {/* Tutors Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {filteredTutors.map((tutor, index) => (
-          <BestTutorCard key={index} tutor={tutor}></BestTutorCard>
-        ))}
-      </div>
+      {loading ? (
+        <div className="flex justify-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-primary"></div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {filteredTutors.map((tutor, index) => (
+            <BestTutorCard key={index} tutor={tutor}></BestTutorCard>
+          ))}
+        </div>
+      )}
 
       {/* No Results Message */}
       {filteredTutors.length === 0 && (
