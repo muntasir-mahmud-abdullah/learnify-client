@@ -51,7 +51,7 @@ const Banner = () => {
         </p>
         <button>
           <Link to="/findTutors">
-            <div className="btn btn-primary mt-10 text-lg sm:text-xl font-semibold">Start Learning</div>
+            <div className="btn  btn-success btn-md sm:btn-lg mt-10 text-lg sm:text-xl font-semibold">Join Now</div>
           </Link>
         </button>
       </div>

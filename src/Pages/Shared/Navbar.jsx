@@ -1,16 +1,19 @@
-import React, { useContext, useEffect, useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import AuthContext from "../../Context/AuthContext/AuthContext";
 // import { MenuIcon, XIcon, SunIcon, MoonIcon } from "@heroicons/react/outline";
-import { Bars3Icon,XMarkIcon, SunIcon, MoonIcon } from "@heroicons/react/24/outline";
+import {
+  Bars3Icon,
+  MoonIcon,
+  SunIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
-  const [theme, setTheme] = useState(
-    localStorage.getItem("theme") || "light"
-  );
+  const [theme, setTheme] = useState("dark");
   const [menuOpen, setMenuOpen] = useState(false);
   const [profileImage, setProfileImage] = useState(
     "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
@@ -34,6 +37,14 @@ const Navbar = () => {
         .catch(() => toast.error("Error fetching profile"));
     }
   }, [user?.email]);
+    // On first render, apply the saved theme class
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [theme]);
 
   // Theme toggle handler
   const toggleTheme = () => {
@@ -41,7 +52,7 @@ const Navbar = () => {
     setTheme(next);
     document.documentElement.setAttribute("data-theme", next);
     document.documentElement.classList.toggle("dark", next === "dark");
-    localStorage.setItem("theme", next);
+    // localStorage.setItem("theme", next);
   };
 
   // Sign out handler
@@ -64,10 +75,14 @@ const Navbar = () => {
 
   return (
     <nav className="bg-base-100 shadow-md sticky top-0 z-50">
-      <div className="max-w-7xl sm:mx-auto flex items-center justify-between h-16 px-4">
+      <div className="container sm:mx-auto flex items-center justify-between h-16 px-4">
         {/* Logo */}
         <Link to="/" className="text-2xl font-bold text-primary">
-          Learnify
+          <img
+            className="sm:w-48 w-60"
+            src="https://i.ibb.co/2YyMKFbt/logo-transparent.png"
+            alt=""
+          />
         </Link>
 
         {/* Desktop Links */}
@@ -77,11 +92,11 @@ const Navbar = () => {
               key={to}
               to={to}
               className={({ isActive }) =>
-                `relative px-3 py-2 text-base font-medium bbotom ${
-                   isActive
-                     ? "after:w-full"
-                     : "text-gray-600"
-                 }`
+                `relative px-3 py-2 text-gray-500 font-medium bbotom ${
+                  isActive
+                    ? "after:w-full text-gray-700 dark:text-gray-300"
+                    : " dark:text-gray-400"
+                }`
               }
             >
               {label}
@@ -92,17 +107,17 @@ const Navbar = () => {
         {/* Right Actions */}
         <div className="flex items-center space-x-2 sm:space-x-4">
           {/* Theme Toggle */}
-<button
-  onClick={toggleTheme}
-  className="p-2 ml:2 sm:ml-auto rounded-full hover:bg-base-200 focus:outline-none focus:ring-2 focus:ring-primary"
-  aria-label="Toggle theme"
->
-  {theme === "light" ? (
-    <MoonIcon className="w-6 h-6 text-gray-700" />
-  ) : (
-    <SunIcon className="w-6 h-6 text-[#f44336]" />
-  )}
-</button>
+          <button
+            onClick={toggleTheme}
+            className="p-2 ml:2 sm:ml-auto rounded-full hover:bg-base-200 focus:outline-none focus:ring-2 focus:ring-primary"
+            aria-label="Toggle theme"
+          >
+            {theme === "light" ? (
+              <MoonIcon className="w-6 h-6 text-gray-700" />
+            ) : (
+              <SunIcon className="w-6 h-6 text-white" />
+            )}
+          </button>
 
           {user ? (
             <>
@@ -126,9 +141,9 @@ const Navbar = () => {
                   tabIndex={0}
                   className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
                 >
-                  <li>
+                  {/* <li>
                     <span className="block px-4 py-2 text-sm">{name}</span>
-                  </li>
+                  </li> */}
                   <li>
                     <button
                       onClick={handleSignOut}
@@ -144,13 +159,13 @@ const Navbar = () => {
             <>
               <NavLink
                 to="/register"
-                className="text-gray-700 hover:text-primary transition-colors"
+                className="text-gray-500 dark:text-gray-300 hover:text-primary transition-colors font-semibold"
               >
                 Register
               </NavLink>
               <NavLink
                 to="/signin"
-                className="btn btn-primary btn-sm flex items-center"
+                className="btn  btn-success btn-sm sm:btn-md text-sm sm:text-base flex items-center"
                 onClick={() => setMenuOpen(false)}
               >
                 Sign In
@@ -159,24 +174,26 @@ const Navbar = () => {
           )}
 
           {/* Mobile Menu Button */}
-<button
-  onClick={() => setMenuOpen(o => !o)}
-  className="lg:hidden p-2 rounded-md hover:bg-base-200 focus:outline-none focus:ring-2 focus:ring-primary"
-  aria-label="Toggle menu"
->
-  {menuOpen ? (
-    <XMarkIcon className="w-6 h-6 text-gray-700" />
-  ) : (
-    <Bars3Icon className="w-6 h-6 text-gray-700" />
-  )}
-</button>
+          <button
+            onClick={() => setMenuOpen((o) => !o)}
+            className="lg:hidden p-2 rounded-md hover:bg-base-200 focus:outline-none focus:ring-2 focus:ring-primary"
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? (
+              <XMarkIcon className="w-6 h-6 text-gray-700" />
+            ) : (
+              <Bars3Icon className="w-6 h-6 text-gray-700" />
+            )}
+          </button>
         </div>
       </div>
 
       {/* Mobile Drawer */}
       <div
         className={`lg:hidden fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity ${
-          menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          menuOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
         }`}
         onClick={() => setMenuOpen(false)}
       />
