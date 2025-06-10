@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => (
   <footer className="bg-gray-100 w-full dark:bg-[#1d232a] text-gray-800 dark:text-gray-200 transition-colors">
-    <div className="md:max-w-6xl mx-auto px-2 sm:px-4 py-12 flex flex-col gap-4 md:gap-0 md:flex-row justify-center">
+    <div className="md:max-w-6xl mx-auto px-2 sm:px-4 py-12 flex flex-col gap-4 md:gap-0 md:flex-row justify-between">
       {/* Brand */}
       <div>
         {/* <h2 className="text-2xl font-bold text-primary">Learnify</h2> */}
@@ -86,7 +86,7 @@ const Footer = () => (
       </div>
     </div>
 
-    <div className="border-t border-gray-300 dark:border-gray-700 mt-8 pt-4">
+    <div className="border-t border-gray-300 dark:border-gray-700 mt-8 pt-4 pb-2">
       <p className="text-center text-xs">
         © {new Date().getFullYear()} Learnify. All rights reserved.
       </p>

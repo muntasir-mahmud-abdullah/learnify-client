@@ -82,7 +82,7 @@ const MyBookedTutors = () => {
                 alt={tutor.name}
                 className="w-full h-48 object-cover"
               />
-              <div className="p-5">
+              <div className="p-5 relative">
                 <h3 className="text-xl font-semibold text-primary">
                   {tutor.name}
                 </h3>
@@ -104,7 +104,7 @@ const MyBookedTutors = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8 }}
                   onClick={() => handleReview(tutor._id)}
-                  className="mt-4 w-full px-4 py-2 bg-primary hover:bg-primary-dark text-white text-lg font-semibold rounded-full shadow-lg transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-primary/50"
+                  className="mt-4 absolute right-2 bottom-2 w-max px-3 py-2 bg-primary hover:bg-primary-dark text-white text-md font-semibold rounded-full shadow-md transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-primary/50"
                 >
                   Leave a Review
                 </motion.button>

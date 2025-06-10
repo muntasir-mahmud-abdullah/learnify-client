@@ -73,7 +73,7 @@ const MyTutorials = () => {
         <Link to="/addTutorial">
                     <motion.button  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8 }} type="submit" className="mt-6 w-1/5 px-4 py-2 bg-primary hover:bg-primary-dark text-white text-md font-semibold rounded-full shadow-md transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-primary/50">
+                  transition={{ duration: 0.8 }} type="submit" className="mt-6 w-max px-4 py-2 bg-primary hover:bg-primary-dark text-white text-md font-semibold rounded-full shadow-md transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-primary/50">
             Add Your First Tutorial
           </motion.button>
         </Link>
