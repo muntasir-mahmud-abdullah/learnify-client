@@ -1,11 +1,12 @@
 import { useLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
 import UseAuth from "../../Hooks/UseAuth";
+import { motion } from "framer-motion";
 const TutorDetails = () => {
   const { user } = UseAuth();
   const tutor = useLoaderData();
-  const { _id, name, image, language, description, price, reviews } = tutor;
-  // console.log(tutor);
+  const { _id, name, image, language, description, price, reviews = 0 } = tutor;
+
   const handleBookedTutor = () => {
     const bookedTutor = {
       tutor_id: _id,
@@ -27,56 +28,54 @@ const TutorDetails = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          toast("Tutor booked successfully! ✅");
+          toast.success("Tutor booked successfully! ✅");
         } else {
-          toast(data.message || "Failed to book tutor. ❌");
+          toast.error(data.message || "Failed to book tutor. ❌");
         }
       })
-      .catch((error) => {
-        // console.error("Error booking tutor:", error)
+      .catch(() => {
         toast.error("Error booking tutor");
       });
   };
 
   return (
-    <div className="container mx-auto mt-8">
-      <h2 className="text-2xl font-bold text-primary text-center mb-6">
-        Tutor Details
-      </h2>
+    <div className="max-w-5xl mx-auto px-4 py-10">
+      <h2 className="text-4xl font-bold text-center text-primary mb-10">Tutor Profile</h2>
 
-      <div className="card bg-base-100 shadow-xl">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden grid grid-cols-1 md:grid-cols-2">
         {/* Image Section */}
-        <figure>
+        <div>
           <img
             src={image}
             alt={name}
-            className="w-full h-64 object-cover rounded-t-lg"
+            className="w-full h-full object-cover"
           />
-        </figure>
+        </div>
 
         {/* Details Section */}
-        <div className="card-body">
-          <h3 className="card-title text-3xl text-primary">{name}</h3>
-          <p className="text-lg text-gray-600 mt-2">
-            <strong>Language:</strong> {language}
-          </p>
-          <p className="text-gray-700 mt-4">{description}</p>
+        <div className="p-6 flex flex-col justify-between">
+          <div>
+            <h3 className="text-3xl font-semibold text-gray-900 dark:text-white mb-3">{name}</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4"><strong>Language:</strong> {language}</p>
+            <p className="text-base text-gray-700 dark:text-gray-200 leading-relaxed mb-6">{description}</p>
 
-          <div className="mt-4">
-            <p className="text-lg text-gray-800">
-              <strong>Price:</strong>{" "}
-              <span className="text-primary">${price}/hour</span>
-            </p>
-            <p className="text-lg text-gray-800">
-              <strong>Reviews:</strong> {reviews}
-            </p>
+            <div className="space-y-2 text-gray-800 dark:text-gray-100">
+              <p><strong>Price:</strong> <span className="text-primary font-semibold">${price}/hour</span></p>
+              <p><strong>Reviews:</strong> {reviews}</p>
+            </div>
           </div>
 
-          {/* Action Section */}
-          <div className="card-actions justify-end mt-6">
-            <button onClick={handleBookedTutor} className="btn btn-primary">
+          {/* Action Button */}
+          <div className="mt-6">
+            <motion.button
+                        initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+              onClick={handleBookedTutor}
+              className="w-full md:w-auto px-4 py-2 bg-primary hover:bg-primary-dark text-white text-lg font-semibold rounded-full shadow-lg transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-primary/50"
+            >
               Book Now
-            </button>
+            </motion.button>
           </div>
         </div>
       </div>

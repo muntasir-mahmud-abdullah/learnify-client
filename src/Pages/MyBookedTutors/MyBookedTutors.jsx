@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import UseAuth from "../../Hooks/UseAuth";
+import { motion } from "framer-motion";
 const MyBookedTutors = () => {
   const { user } = UseAuth();
   const [bookedTutors, setBookedTutors] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch booked tutors for the logged-in user
-  // Client-side: Fetch booked tutors
   useEffect(() => {
-    if (!user.email) {
+    if (!user?.email) {
       setBookedTutors([]);
       setLoading(false);
       return;
@@ -19,110 +18,102 @@ const MyBookedTutors = () => {
       `https://learnify-server-blush.vercel.app/booked-tutors?user_email=${user.email}`,
       {
         method: "GET",
-        credentials: "include", // Include cookies for authentication
+        credentials: "include",
       }
     )
       .then((res) => {
-        if (!res.ok) {
-          throw new Error("Failed to fetch booked tutors");
-        }
+        if (!res.ok) throw new Error("Failed to fetch booked tutors");
         return res.json();
       })
-      .then((data) => {
-        setBookedTutors(data);
-      })
-      .catch((error) => {
-        // console.error("Error fetching booked tutors:", error);
-        toast.error("Error fetching booked tutors:");
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [user.email]);
+      .then(setBookedTutors)
+      .catch(() => toast.error("Error fetching booked tutors"))
+      .finally(() => setLoading(false));
+  }, [user?.email]);
 
-  // Handle Review Increment
   const handleReview = (id) => {
     fetch(
       `https://learnify-server-blush.vercel.app/booked-tutors/${id}/review`,
       {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
       }
     )
       .then((res) => {
-        if (!res.ok) {
-          throw new Error("Failed to increment review count");
-        }
+        if (!res.ok) throw new Error("Failed to increment review count");
         return res.json();
       })
       .then(() => {
-        // Update the review count optimistically
-        setBookedTutors((prevTutors) =>
-          prevTutors.map((tutor) =>
-            tutor._id === id
-              ? { ...tutor, reviews: (tutor.reviews || 0) + 1 }
-              : tutor
+        setBookedTutors((prev) =>
+          prev.map((t) =>
+            t._id === id ? { ...t, reviews: (t.reviews || 0) + 1 } : t
           )
         );
       })
-      .catch((error) =>
-        // console.error("Error incrementing review count:", error);
-        toast.error("Error incrementing review count")
-      );
+      .catch(() => toast.error("Error incrementing review count"));
   };
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center py-16">
-                  <div className="flex justify-center">
-            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-primary"></div>
-          </div>
+      <div className="flex justify-center items-center min-h-[40vh]">
+        <div className="animate-spin h-14 w-14 border-t-4 border-primary rounded-full"></div>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h2 className="text-3xl text-center mb-6 font-bold text-gray-800">
+    <section className="max-w-7xl mx-auto px-4 py-10">
+      <h2 className="text-4xl font-extrabold text-center text-gray-800 dark:text-gray-100 mb-10">
         My Booked Tutors
       </h2>
 
-      {/* Display message if no tutors are booked */}
       {bookedTutors.length === 0 ? (
-        <p className="text-center col-span-full text-lg text-gray-500">
+        <p className="text-center text-lg text-gray-500">
           No tutors booked yet.
         </p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {bookedTutors.map((tutor) => (
             <div
               key={tutor._id}
-              className="card shadow-md border border-gray-200 rounded-lg p-4"
+              className="bg-base-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-md rounded-xl overflow-hidden transition-transform hover:scale-105 hover:shadow-xl"
             >
               <img
                 src={tutor.image}
                 alt={tutor.name}
-                className="w-full h-48 object-cover rounded-lg mb-4"
+                className="w-full h-48 object-cover"
               />
-              <h3 className="text-xl font-bold text-gray-800">{tutor.name}</h3>
-              <p className="text-gray-600">Language: {tutor.language}</p>
-              <p className="text-gray-600">Price: ${tutor.price}/hour</p>
-              <p className="text-gray-600">Reviews: {tutor.reviews || 0}</p>
+              <div className="p-5">
+                <h3 className="text-xl font-semibold text-primary">
+                  {tutor.name}
+                </h3>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                  Language:{" "}
+                  <span className="font-medium">{tutor.language}</span>
+                </p>
+                <p className="text-sm mt-1 text-gray-600 dark:text-gray-300">
+                  Price:{" "}
+                  <span className="font-medium">${tutor.price}/hour</span>
+                </p>
+                <p className="text-sm mt-1 text-gray-600 dark:text-gray-300">
+                  Reviews:{" "}
+                  <span className="font-medium">{tutor.reviews || 0}</span>
+                </p>
 
-              {/* Review Button */}
-              <button
-                className="btn btn-primary mt-4"
-                onClick={() => handleReview(tutor._id)}
-              >
-                Review
-              </button>
+                <motion.button
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                  onClick={() => handleReview(tutor._id)}
+                  className="mt-4 w-full px-4 py-2 bg-primary hover:bg-primary-dark text-white text-lg font-semibold rounded-full shadow-lg transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-primary/50"
+                >
+                  Leave a Review
+                </motion.button>
+              </div>
             </div>
           ))}
         </div>
       )}
-    </div>
+    </section>
   );
 };
 
