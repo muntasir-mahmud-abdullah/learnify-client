@@ -14,3 +14,7 @@
 .bbotom:hover::after {
   width: 100%;
 }
+
+.swiper-pagination {
+  bottom: 0rem !important;
+}
