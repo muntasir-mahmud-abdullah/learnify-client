@@ -8,23 +8,23 @@ import "swiper/css/pagination";
 
 const testimonials = [
   {
-    name: "Aisha Rahman",
+    name: "Ashique Rahman",
     role: "Spanish Learner",
-    avatar: "https://i.pravatar.cc/100?img=12",
+    avatar: "https://i.pravatar.cc/100?img=4",
     quote:
       "Learnify helped me finally feel confident speaking Spanish. My tutor María tailored each lesson to my interests—it’s been a game-changer!",
   },
   {
     name: "John Doe",
     role: "French Enthusiast",
-    avatar: "https://i.pravatar.cc/100?img=32",
+    avatar: "https://i.pravatar.cc/100?img=12",
     quote:
       "I love the flexibility! I can book whenever I have time, and the video sessions feel just like being in a real classroom.",
   },
   {
-    name: "Sara Lee",
+    name: "Robert Lee",
     role: "Japanese Beginner",
-    avatar: "https://i.pravatar.cc/100?img=5",
+    avatar: "https://i.pravatar.cc/100?img=8",
     quote:
       "My tutor Kenji was so patient. His real-world examples and homework assignments kept me motivated. Highly recommend!",
   },

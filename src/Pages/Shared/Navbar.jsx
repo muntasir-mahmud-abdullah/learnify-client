@@ -165,7 +165,7 @@ const Navbar = () => {
               </NavLink>
               <NavLink
                 to="/signin"
-                className="px-3 py-2 bg-primary hover:bg-primary-dark text-white text-sm font-semibold rounded-full shadow-sm transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-primary/50 flex items-center"
+                className="px-1 py-0 text-center sm:px-3 sm:py-2 bg-primary hover:bg-primary-dark text-white text-xs sm:text-sm font-semibold rounded-lg sm:rounded-full shadow-sm transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-primary/50 flex items-center"
                 onClick={() => setMenuOpen(false)}
               >
                 Sign In
