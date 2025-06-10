@@ -40,16 +40,16 @@ const HowItWorksStudent = () => (
         return (
           <div
             key={idx}
-            className={`mb-12 flex w-full items-center ${
-              isEven ? "justify-end" : "justify-start"
+            className={`mb-12 block sm:flex w-full items-center ${
+              isEven ? "justify-center sm:justify-end" : "justify-center sm:justify-start"
             }`}
           >
-            <div className={`w-5/12 ${isEven ? "order-2" : ""}`}></div>
+            <div className={`w-4/5 sm:w-5/12  ${isEven ? "order-2" : ""}`}></div>
 
             {/* Step Marker */}
             <div className="z-10">
               <div className="flex flex-col items-center">
-                <span className="flex items-center justify-center w-12 h-12 rounded-full bg-primary text-white text-lg font-bold">
+                <span className="flex items-center justify-center w-12 h-12 rounded-full bg-primary text-white text-lg font-bold z-20">
                   {idx + 1}
                 </span>
                 {/* Connector dot */}
@@ -59,7 +59,7 @@ const HowItWorksStudent = () => (
 
             {/* Card */}
             <div
-              className={`w-5/12 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg transition-transform transform hover:scale-105 ${
+              className={`w-4/5 sm:w-5/12 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg transition-transform transform hover:scale-105 ${
                 isEven ? "ml-8 text-right" : "mr-8 text-left"
               }`}
             >
