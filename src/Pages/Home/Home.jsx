@@ -1,16 +1,14 @@
-import React from "react";
+import AboutPlatform from "./AboutPlatform";
 import Banner from "./Banner";
+import ContactUs from "./ContactUs";
+import HowItWorks from "./HowItWorks";
 import Languages from "./Languages";
 import Statistics from "./Statistics";
-import HowItWorks from "./HowItWorks";
-import AboutUs from "./AboutUs";
 import Testimonial from "./Testomonial";
-import ContactUs from "./ContactUs";
 
 const Home = () => {
   return (
     <div className="bg-gray-50 dark:bg-gray-900 transition-colors">
-
       {/* Banner */}
       <section className="relative">
         <Banner />
@@ -20,6 +18,14 @@ const Home = () => {
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4">
           <Languages />
+        </div>
+      </section>
+
+      {/* Divider */}
+      <div className="h-1 bg-primary/20 dark:bg-primary/40 mx-auto max-w-2xl rounded-full"></div>
+      <section className="py-16">
+        <div className="max-w-7xl mx-auto px-4">
+          <AboutPlatform />
         </div>
       </section>
 
@@ -46,16 +52,6 @@ const Home = () => {
       {/* Divider */}
       <div className="h-1 bg-primary/20 dark:bg-primary/40 mx-auto max-w-2xl rounded-full"></div>
 
-      {/* About Us */}
-      <section className="py-16 bg-white dark:bg-gray-800 transition-colors">
-        <div className="max-w-5xl mx-auto px-4">
-          <AboutUs />
-        </div>
-      </section>
-
-      {/* Divider */}
-      <div className="h-1 bg-primary/20 dark:bg-primary/40 mx-auto max-w-2xl rounded-full"></div>
-
       {/* Testimonials */}
       <section className="py-16">
         <div className="max-w-4xl mx-auto px-4">
@@ -75,7 +71,6 @@ const Home = () => {
           <ContactUs />
         </div>
       </section>
-
     </div>
   );
 };
