@@ -89,7 +89,7 @@ const HowItWorksTutor = () => {
                 <step.icon className="h-6 w-6" />
               </motion.div>
 
-              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 transition-transform transform hover:scale-105">
+              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
                 <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
                   {step.title}
                 </h3>

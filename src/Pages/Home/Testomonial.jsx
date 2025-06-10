@@ -36,6 +36,15 @@ const cardVariants = {
 };
 
 const Testimonial = () => (
+  <>
+    <div className="max-w-5xl mx-auto px-4 text-center mb-12">
+      <h2 className="text-4xl font-extrabold text-gray-900 dark:text-gray-100">
+        What Our Learners Say
+      </h2>
+      <p className="mt-2 text-gray-600 dark:text-gray-300">
+        Real experiences from students and tutors using Learnify to grow and succeed.
+      </p>
+    </div>
   <Swiper
     modules={[Autoplay, Pagination]}
     spaceBetween={24}
@@ -80,6 +89,7 @@ const Testimonial = () => (
       </SwiperSlide>
     ))}
   </Swiper>
+  </>
 );
 
 export default Testimonial;

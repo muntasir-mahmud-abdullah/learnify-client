@@ -52,7 +52,7 @@ const Home = () => {
       </section>
       {/* Divider */}
       <div className="h-1 bg-primary/20 dark:bg-primary/40 mx-auto max-w-2xl rounded-full"></div>
-      <section className="py-16">
+      <section className="pt-16 pb-24 ">
         <div className="max-w-4xl mx-auto px-4">
           <Testimonial />
         </div>
