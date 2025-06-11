@@ -1,5 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { useContext, useEffect, useState } from "react";
+import {useNavigate,useLocation} from "react-router-dom"
 import { toast } from "react-toastify";
 import AuthContext from "../../Context/AuthContext/AuthContext";
 import GoogleSignIn from "../Shared/GoogleSignIn";
@@ -10,6 +11,9 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   // fetch total registered users
   useEffect(() => {
@@ -24,19 +28,24 @@ export default function Register() {
     setLoading(true);
     setError("");
     setSuccess("");
-
-    const { name, email, password, photoURL } = Object.fromEntries(new FormData(e.target));
+    navigate(from, { replace: true });
+    const { name, email, password, photoURL } = Object.fromEntries(
+      new FormData(e.target)
+    );
 
     try {
       // create in Firebase
       await createUser(email, password);
 
       // persist to our backend
-      const res = await fetch("https://learnify-server-blush.vercel.app/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, photoURL }),
-      });
+      const res = await fetch(
+        "https://learnify-server-blush.vercel.app/register",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, photoURL }),
+        }
+      );
       const data = await res.json();
 
       if (!res.ok) throw new Error(data.message || "Registration failed");
@@ -88,7 +97,7 @@ export default function Register() {
             className="input input-bordered w-full"
           />
           <button
-                      initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             type="submit"
@@ -120,7 +129,7 @@ export default function Register() {
           </motion.p>
         )}
 
-        <GoogleSignIn />
+         <GoogleSignIn redirectTo={from} />
 
         <p className="mt-6 text-center text-sm text-gray-500">
           Already have an account?{" "}
