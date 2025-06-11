@@ -1,56 +1,57 @@
+// src/Pages/Shared/GoogleSignIn.jsx
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useContext, useState } from "react";
 import { toast } from "react-toastify";
 import AuthContext from "../../Context/AuthContext/AuthContext";
-const GoogleSignIn = () => {
+import { FcGoogle } from "react-icons/fc";
+
+const GoogleSignIn = ({ redirectTo = "/" }) => {
   const { signInWithGoogle } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   const handleGoogleSignIn = async () => {
+    setLoading(true);
     try {
-      setLoading(true);
+      // Step 1: Sign in using Firebase Google Provider
       const result = await signInWithGoogle();
-      const { email } = result.user;
-      console.log(result.user);
-      // Generate token
-      axios.post(
+      const email = result.user.email;
+
+      // Step 2: Exchange email for a JWT cookie
+      await axios.post(
         "https://learnify-server-blush.vercel.app/jwt",
-        { email: email },
+        { email },
         { withCredentials: true }
       );
 
-      // if (response.status === 200) {
-      //   // console.log("Token generated:", response.data.token);
-      //   toast("Sign-in successful!");
-      //   // You can store the token securely here if needed
-      // } else {
-      //   // console.error("Failed to generate token");
-      //   // alert("Something went wrong, please try again.");
-      //   toast.error("Failed to generate token");
-      // }
-    } catch (error) {
-      console.error("Error during Google Sign-In:", error);
+      toast.success("Signed in with Google!");
 
-      toast.error("Google Sign-In failed. Please try again.");
+      // Step 3: Navigate to intended route
+      navigate(redirectTo, { replace: true });
+    } catch (err) {
+      console.error("Google Sign-In error:", err);
+      toast.error("Google Sign-In failed");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="m-4">
-      <div className="divider">OR</div>
+    <div className="mt-4 w-full">
+      <div className="divider text-sm text-gray-400">Or continue with</div>
       <button
         onClick={handleGoogleSignIn}
-        className={`btn ${loading ? "btn-disabled" : ""}`}
         disabled={loading}
+        className="w-full flex items-center justify-center gap-3 py-2 px-4 bg-white border border-gray-300 text-gray-700 hover:bg-gray-100 dark:bg-base-100 dark:border-gray-600 dark:hover:bg-gray-700 rounded-lg shadow-sm transition duration-300 font-medium"
       >
         {loading ? (
-          <div className="flex justify-center">
-            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-primary"></div>
-          </div>
+          <span className="loading loading-spinner loading-sm text-primary"></span>
         ) : (
-          "Sign in with Google"
+          <>
+            <FcGoogle size={20} />
+            <span className="text-gray-900 dark:text-gray-300" >Sign in with Google</span>
+          </>
         )}
       </button>
     </div>
