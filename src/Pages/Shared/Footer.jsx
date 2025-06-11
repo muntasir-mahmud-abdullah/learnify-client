@@ -12,7 +12,7 @@ const Footer = () => (
       {/* Brand */}
       <div>
         {/* <h2 className="text-2xl font-bold text-primary">Learnify</h2> */}
-        <Link to="/" className="text-2xl font-bold text-primary">
+        <Link to="/" className="text-2xl cursor-default font-bold text-primary">
           <img
             className="sm:w-32 w-48"
             src="https://i.ibb.co/XZZJgcww/logo-transparent.png"

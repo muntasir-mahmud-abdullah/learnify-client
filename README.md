@@ -51,7 +51,7 @@ Learnify is a modern full-stack MERN (MongoDB, Express, React, Node.js) applicat
 
 4. **Access the Application**
 
-   - Frontend: `http://localhost:3000`
+   - Frontend: `http://localhost:5173`
    - Backend API: `https://learnify-server-blush.vercel.app`
 
 ## Live Link

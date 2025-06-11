@@ -1,8 +1,8 @@
 // src/Components/Languages.jsx
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import LanguageCard from "./LanguageCard";
-import { motion } from "framer-motion";
 
 const containerVariants = {
   hidden: {},
@@ -15,7 +15,7 @@ const containerVariants = {
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
-  show:  { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 };
 
 const Languages = () => {

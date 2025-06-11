@@ -27,7 +27,9 @@ const Navbar = () => {
         `https://learnify-server-blush.vercel.app/user-profile?email=${encodeURIComponent(
           user.email
         )}`,
-        { credentials: "include" }
+        {
+          credentials: "include",
+        }
       )
         .then((res) => res.json())
         .then((data) => {
@@ -37,7 +39,7 @@ const Navbar = () => {
         .catch(() => toast.error("Error fetching profile"));
     }
   }, [user?.email]);
-    // On first render, apply the saved theme class
+  // On first render, apply the saved theme class
   useEffect(() => {
     if (theme === "dark") {
       document.documentElement.classList.add("dark");

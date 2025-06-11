@@ -1,12 +1,12 @@
 // src/Components/FindTutors.jsx
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { motion } from "framer-motion";
 
 const cardVariants = {
   hidden: { opacity: 0, y: 20 },
-  show:  { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
 const FindTutors = () => {
@@ -15,7 +15,9 @@ const FindTutors = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`https://learnify-server-blush.vercel.app/tutorials/category/${category}`)
+    fetch(
+      `https://learnify-server-blush.vercel.app/tutorials/category/${category}`
+    )
       .then((res) => {
         if (!res.ok) throw new Error("Network response was not ok");
         return res.json();

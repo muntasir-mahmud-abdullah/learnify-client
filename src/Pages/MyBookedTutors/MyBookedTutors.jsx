@@ -1,7 +1,7 @@
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import UseAuth from "../../Hooks/UseAuth";
-import { motion } from "framer-motion";
 const MyBookedTutors = () => {
   const { user } = UseAuth();
   const [bookedTutors, setBookedTutors] = useState([]);

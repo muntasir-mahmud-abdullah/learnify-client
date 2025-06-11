@@ -1,8 +1,8 @@
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import UseAuth from "../../Hooks/UseAuth";
-import {motion} from "framer-motion";
 const MyTutorials = () => {
   const { user, setTutorials, tutorials } = UseAuth();
   const [loading, setLoading] = useState(true);
@@ -10,7 +10,14 @@ const MyTutorials = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`https://learnify-server-blush.vercel.app/user-profile?email=${user.email}`)
+      fetch(
+        `https://learnify-server-blush.vercel.app/user-profile?email=${encodeURIComponent(
+          user.email
+        )}`,
+        {
+          credentials: "include",
+        }
+      )
         .then((res) => res.json())
         .then((data) => setName(data.name || "User"))
         .catch(() => toast.error("Failed to fetch user profile"));
@@ -19,9 +26,15 @@ const MyTutorials = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`https://learnify-server-blush.vercel.app/my-tutorials?email=${user.email}`, {
-      credentials: "include",
-    })
+
+    fetch(
+      `https://learnify-server-blush.vercel.app/my-tutorials?email=${encodeURIComponent(
+        user.email
+      )}`,
+      {
+        credentials: "include",
+      }
+    )
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch tutorials");
         return res.json();
@@ -37,7 +50,9 @@ const MyTutorials = () => {
   }, [user.email, setTutorials]);
 
   const handleDelete = (id) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this tutorial?");
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this tutorial?"
+    );
     if (!confirmDelete) return;
 
     fetch(`https://learnify-server-blush.vercel.app/tutorials/${id}`, {
@@ -68,12 +83,20 @@ const MyTutorials = () => {
   if (tutorials.length === 0) {
     return (
       <div className="text-center py-16">
-        <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-4">No Tutorials Yet</h2>
-        <p className="text-gray-500">You haven't posted any tutorials. Ready to share your expertise?</p>
+        <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
+          No Tutorials Yet
+        </h2>
+        <p className="text-gray-500">
+          You haven't posted any tutorials. Ready to share your expertise?
+        </p>
         <Link to="/addTutorial">
-                    <motion.button  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8 }} type="submit" className="mt-6 w-max px-4 py-2 bg-primary hover:bg-primary-dark text-white text-md font-semibold rounded-full shadow-md transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-primary/50">
+          <motion.button
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            type="submit"
+            className="mt-6 w-max px-4 py-2 bg-primary hover:bg-primary-dark text-white text-md font-semibold rounded-full shadow-md transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-primary/50"
+          >
             Add Your First Tutorial
           </motion.button>
         </Link>
@@ -118,7 +141,9 @@ const MyTutorials = () => {
                 <td>
                   <div className="flex flex-col md:flex-row gap-2">
                     <Link to={`/updateTutorial/${tutorial._id}`}>
-                      <button className="btn btn-sm btn-outline btn-primary">Edit</button>
+                      <button className="btn btn-sm btn-outline btn-primary">
+                        Edit
+                      </button>
                     </Link>
                     <button
                       onClick={() => handleDelete(tutorial._id)}

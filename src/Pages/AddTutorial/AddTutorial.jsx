@@ -1,7 +1,7 @@
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import UseAuth from "../../Hooks/UseAuth";
-import { motion } from "framer-motion";
 const AddTutorial = () => {
   const { user } = UseAuth();
   const [name, setName] = useState("User");
@@ -17,7 +17,9 @@ const AddTutorial = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`https://learnify-server-blush.vercel.app/user-profile?email=${user.email}`)
+      fetch(
+        `https://learnify-server-blush.vercel.app/user-profile?email=${user.email}`
+      )
         .then((res) => res.json())
         .then((data) => setName(data.name || "User"))
         .catch(() => toast.error("Failed to load profile info"));
@@ -63,10 +65,15 @@ const AddTutorial = () => {
         Share Your Expertise: Add a Tutorial
       </h2>
 
-      <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 shadow-xl p-8 rounded-lg space-y-6">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white dark:bg-gray-800 shadow-xl p-8 rounded-lg space-y-6"
+      >
         <div className="grid md:grid-cols-2 gap-6">
           <div>
-            <label className="label font-medium text-gray-700 dark:text-gray-200">Name</label>
+            <label className="label font-medium text-gray-700 dark:text-gray-200">
+              Name
+            </label>
             <input
               type="text"
               value={name}
@@ -76,7 +83,9 @@ const AddTutorial = () => {
           </div>
 
           <div>
-            <label className="label font-medium text-gray-700 dark:text-gray-200">Email</label>
+            <label className="label font-medium text-gray-700 dark:text-gray-200">
+              Email
+            </label>
             <input
               type="email"
               name="email"
@@ -88,7 +97,9 @@ const AddTutorial = () => {
         </div>
 
         <div>
-          <label className="label font-medium text-gray-700 dark:text-gray-200">Image URL</label>
+          <label className="label font-medium text-gray-700 dark:text-gray-200">
+            Image URL
+          </label>
           <input
             type="url"
             name="image"
@@ -102,7 +113,9 @@ const AddTutorial = () => {
 
         <div className="grid md:grid-cols-2 gap-6">
           <div>
-            <label className="label font-medium text-gray-700 dark:text-gray-200">Language</label>
+            <label className="label font-medium text-gray-700 dark:text-gray-200">
+              Language
+            </label>
             <input
               type="text"
               name="language"
@@ -115,7 +128,9 @@ const AddTutorial = () => {
           </div>
 
           <div>
-            <label className="label font-medium text-gray-700 dark:text-gray-200">Price (USD/hour)</label>
+            <label className="label font-medium text-gray-700 dark:text-gray-200">
+              Price (USD/hour)
+            </label>
             <input
               type="number"
               name="price"
@@ -130,7 +145,9 @@ const AddTutorial = () => {
         </div>
 
         <div>
-          <label className="label font-medium text-gray-700 dark:text-gray-200">Description</label>
+          <label className="label font-medium text-gray-700 dark:text-gray-200">
+            Description
+          </label>
           <textarea
             name="description"
             value={tutorial.description}
@@ -143,9 +160,13 @@ const AddTutorial = () => {
         </div>
 
         <div className="text-center pt-4">
-          <motion.button  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8 }} type="submit" className="w-full md:w-1/3 px-4 py-2 bg-primary hover:bg-primary-dark text-white text-lg font-semibold rounded-full shadow-lg transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-primary/50">
+          <motion.button
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            type="submit"
+            className="w-full md:w-1/3 px-4 py-2 bg-primary hover:bg-primary-dark text-white text-lg font-semibold rounded-full shadow-lg transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-primary/50"
+          >
             Submit Tutorial
           </motion.button>
         </div>

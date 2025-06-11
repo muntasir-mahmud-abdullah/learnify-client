@@ -45,9 +45,13 @@ const GoogleSignIn = () => {
         className={`btn ${loading ? "btn-disabled" : ""}`}
         disabled={loading}
       >
-        {loading ?           <div className="flex justify-center">
+        {loading ? (
+          <div className="flex justify-center">
             <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-primary"></div>
-          </div> : "Sign in with Google"}
+          </div>
+        ) : (
+          "Sign in with Google"
+        )}
       </button>
     </div>
   );

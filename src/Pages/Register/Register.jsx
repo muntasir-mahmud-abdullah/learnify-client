@@ -119,9 +119,13 @@ const Register = () => {
             {/* Submit Button */}
             <div className="form-control mt-6">
               <button className="btn btn-primary" disabled={loading}>
-                {loading ?           <div className="flex justify-center">
-            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-primary"></div>
-          </div> : "Register"}
+                {loading ? (
+                  <div className="flex justify-center">
+                    <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-primary"></div>
+                  </div>
+                ) : (
+                  "Register"
+                )}
               </button>
             </div>
           </form>
