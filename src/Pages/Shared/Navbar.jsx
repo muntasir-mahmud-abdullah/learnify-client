@@ -77,11 +77,11 @@ const Navbar = () => {
 
   return (
     <nav className="bg-base-100 shadow-md sticky top-0 z-50">
-      <div className="container sm:mx-auto flex items-center justify-between h-16 px-4">
+      <div className="container sm:mx-auto flex items-center justify-between h-16 sm:px-4">
         {/* Logo */}
         <Link to="/" className="text-2xl font-bold text-primary">
           <img
-            className="sm:w-48 w-60"
+            className="sm:w-48 w-36"
             src="https://i.ibb.co/2YyMKFbt/logo-transparent.png"
             alt=""
           />
@@ -167,7 +167,7 @@ const Navbar = () => {
               </NavLink>
               <NavLink
                 to="/signin"
-                className="px-1 py-0 text-center sm:px-3 sm:py-2 bg-primary hover:bg-primary text-white text-xs sm:text-sm font-semibold rounded-lg sm:rounded-full shadow-sm transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-primary/50 flex items-center"
+                className="p-1 text-center sm:px-3 sm:py-2 bg-primary hover:bg-primary text-white text-xs sm:text-sm font-semibold rounded-lg sm:rounded-full shadow-sm transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-primary/50 flex items-center"
                 onClick={() => setMenuOpen(false)}
               >
                 Sign In

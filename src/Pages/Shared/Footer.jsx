@@ -46,7 +46,7 @@ const Footer = () => (
             "Home",
             "Find Tutors",
             "Add Tutorial",
-            "My Tutorials",
+            "My Tutorial",
             "My Booked Tutors",
           ].map((text) => (
             <li key={text}>

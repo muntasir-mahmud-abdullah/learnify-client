@@ -16,7 +16,7 @@ const LanguageCard = ({ language }) => {
             <img
               src={logo}
               alt={name}
-              className="h-16 w-16 rounded-lg bg-gray-100 dark:bg-gray-700 p-2 object-contain"
+              className="h-16 w-16 rounded-lg bg-gray-100 dark:bg-gray-700 p-2"
             />
           </div>
 
