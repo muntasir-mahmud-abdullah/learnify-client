@@ -2,13 +2,31 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import UseAuth from "../../Hooks/UseAuth";
+
 const AddTutorial = () => {
   const { user } = UseAuth();
   const [name, setName] = useState("User");
 
+  useEffect(() => {
+    if (user?.email) {
+      fetch(
+        `https://learnify-server-blush.vercel.app/user-profile?email=${encodeURIComponent(
+          user.email
+        )}`,
+        {
+          credentials: "include",
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => setName(data.name || "User"))
+        .catch(() => toast.error("Failed to fetch user profile"));
+    }
+  }, [user]);
+
   const [tutorial, setTutorial] = useState({
     email: user?.email || "",
     image: "",
+    name: name,
     language: "",
     price: "",
     description: "",
@@ -16,15 +34,9 @@ const AddTutorial = () => {
   });
 
   useEffect(() => {
-    if (user?.email) {
-      fetch(
-        `https://learnify-server-blush.vercel.app/user-profile?email=${user.email}`
-      )
-        .then((res) => res.json())
-        .then((data) => setName(data.name || "User"))
-        .catch(() => toast.error("Failed to load profile info"));
-    }
-  }, [user]);
+    // Update tutorial name when fetched name is set
+    setTutorial((prev) => ({ ...prev, name }));
+  }, [name]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,6 +58,7 @@ const AddTutorial = () => {
           toast.success("Tutorial submitted successfully! 🎉");
           setTutorial({
             email: user?.email || "",
+            name: name,
             image: "",
             language: "",
             price: "",

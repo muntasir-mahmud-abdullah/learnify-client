@@ -21,24 +21,44 @@ const Navbar = () => {
   const [name, setName] = useState("User");
 
   // Fetch user profile info
-  useEffect(() => {
-    if (user?.email) {
-      fetch(
+// … inside Navbar component …
+
+useEffect(() => {
+  if (!user?.email) return;
+
+  const fetchProfile = async (retry = false) => {
+    try {
+      const res = await fetch(
         `https://learnify-server-blush.vercel.app/user-profile?email=${encodeURIComponent(
           user.email
         )}`,
-        {
-          credentials: "include",
-        }
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          setProfileImage(data.photoURL || profileImage);
-          setName(data.name || "User");
-        })
-        .catch(() => toast.error("Error fetching profile"));
+        { credentials: "include" }
+      );
+
+      if (res.status === 404) {
+        // maybe backend hasn’t created the record yet—retry once
+        if (!retry) setTimeout(() => fetchProfile(true), 1000);
+        return;
+      }
+
+      if (!res.ok) {
+        toast.error("Error fetching profile");
+        return;
+      }
+
+      const data = await res.json();
+      setProfileImage(data.photoURL || profileImage);
+      setName(data.name || "User");
+    } catch (err) {
+      // network/server error
+      toast.error("Error fetching profile");
+      console.warn("Profile fetch failed:", err);
     }
-  }, [user?.email]);
+  };
+
+  fetchProfile();
+}, [user?.email]);
+
   // On first render, apply the saved theme class
   useEffect(() => {
     if (theme === "dark") {
