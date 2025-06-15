@@ -11,31 +11,49 @@ const GoogleSignIn = ({ redirectTo = "/" }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  const handleGoogleSignIn = async () => {
-    setLoading(true);
+const handleGoogleSignIn = async () => {
+  setLoading(true);
+  try {
+    const result = await signInWithGoogle();
+    const { displayName: name, email, photoURL } = result.user;
+
+    // console.log("Submitting register:", { name, email, photoURL });
+
+    // Try register, but ignore if 400 (user exists)
     try {
-      // Step 1: Sign in using Firebase Google Provider
-      const result = await signInWithGoogle();
-      const email = result.user.email;
-
-      // Step 2: Exchange email for a JWT cookie
-      await axios.post(
-        "https://learnify-server-blush.vercel.app/jwt",
-        { email },
-        { withCredentials: true }
+      const reg = await fetch(
+        "https://learnify-server-blush.vercel.app/register",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, photoURL }),
+        }
       );
-
-      toast.success("Signed in with Google!");
-
-      // Step 3: Navigate to intended route
-      navigate(redirectTo, { replace: true });
-    } catch (err) {
-      console.error("Google Sign-In error:", err);
-      toast.error("Google Sign-In failed");
-    } finally {
-      setLoading(false);
+      if (!reg.ok && reg.status !== 400) {
+        // only treat non‑400 as fatal
+        throw new Error(`Register failed (${reg.status})`);
+      }
+    } catch (regErr) {
+      console.warn("Register endpoint:", regErr);
     }
-  };
+
+    // Always request JWT
+    await axios.post(
+      "https://learnify-server-blush.vercel.app/jwt",
+      { email },
+      { withCredentials: true }
+    );
+
+    toast.success("Signed in with Google!");
+    navigate(redirectTo, { replace: true });
+  } catch (err) {
+    console.error("Google Sign-In error:", err);
+    toast.error("Google Sign-In failed");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className="mt-4 w-full">
